@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<space>
+    <name name="平安银行">
+        <connectname>test_lfyh</connectname>
+        <connectpassword>test_lfyh</connectpassword>
+        <connectip>192.168.85.81:1521</connectip>
+    <dbname>emserver</dbname>
+    </name>
+    <name name="中国银行">
+        <connectname>jrwz2_zx</connectname>
+        <connectpassword>jrwz2_zx</connectpassword>
+        <connectip>192.168.81.41:152122222</connectip>
+        <dbname>emserver</dbname>
+    </name>
+</space>

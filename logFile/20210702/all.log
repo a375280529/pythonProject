@@ -1,0 +1,4 @@
+2021-07-02 17:55:35,977 - C:/Users/vzoom/PycharmProjects/pythonProject/forpub/checkLogTest.py[line:7] - DEBUG: debug222222
+2021-07-02 17:55:35,978 - C:/Users/vzoom/PycharmProjects/pythonProject/forpub/checkLogTest.py[line:8] - INFO: info222222
+2021-07-02 17:55:35,978 - C:/Users/vzoom/PycharmProjects/pythonProject/forpub/checkLogTest.py[line:9] - WARNING: warning222222
+2021-07-02 17:55:35,978 - C:/Users/vzoom/PycharmProjects/pythonProject/forpub/checkLogTest.py[line:10] - CRITICAL: critical222222
