@@ -62,8 +62,11 @@ class checkCallProNew(unittest.TestCase):
                 i+=1
                 inlist.append(str(self.list[2][num]["value"+str(i)]))
 
-            outmap["v_flag"] = "number"
-            outmap["v_remark"] = "str"
+            omap=self.list[2][num]['proreturnvalue']
+            olist=omap.split("&")
+            for ova in olist:
+                outm=ova.split(",")
+                outmap[outm[0]] = outm[1]
             tablelist=table.split(",")
             columnlist=column.split("&")
             wherelist=where.split(",")
@@ -72,11 +75,11 @@ class checkCallProNew(unittest.TestCase):
             #调用存储过程
             result = conOracle.usePro(self.url, proname, inlist, outmap)
 
-            #验证存储过程是否调用成功
-            if result[int(innumber)] == 0.0:
-                pass
-            else:
-                print("<p style='color:#9400D3'>数据编号" + str(num + 2)+"的存储过程执行异常！\n</p>")
+            #(标准指标等用的)验证存储过程是否调用成功
+            # if result[int(innumber)] == 0.0:
+            #     pass
+            # else:
+            #     print("<p style='color:#9400D3'>数据编号" + str(num + 2)+"的存储过程执行异常！\n</p>")
             # self.assertEqual(result[int(innumber)], 0.0)
             # self.assertEqual(result[int(innumber)+1], "成功")
 

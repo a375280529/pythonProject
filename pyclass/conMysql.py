@@ -105,10 +105,10 @@ def useMysqlPro(host,port,user,password,database,proname,inlist,outmap):
     for inname in inlist:
         list.append(inname)
     for outname in outmap.keys():
-        if outmap[outname]=="str":
+        if outmap[outname]=="String":
             outname=cursor.var(ms.STRING)
             list.append(outname)
-        elif outmap[outname]=="number":
+        elif outmap[outname]=="Float":
             outname = cursor.var(ms.NUMBER)
             list.append(outname)
         elif outmap[outname]=="datetime":
