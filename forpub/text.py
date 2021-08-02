@@ -4,7 +4,6 @@ import os
 import sys
 import unittest
 import finalClass as fc
-import jsonpath
 
 # 通用存储过程场景测试
 class text(unittest.TestCase):
@@ -37,15 +36,15 @@ class text(unittest.TestCase):
                 params, headers)
             #print(dd)
             try:
-                re = jsonpath.jsonpath(dd, "$..final_result")
-                if result == re[0]:
+                re = dd["json"]["data"]["final_result"]
+                if result == re:
                     pass
                 else:
-                    self.maphave["数据编号" + str(num + 1)] = "期望值：" + result + ",实际值：" + re[0]
+                    self.maphave["数据编号" + str(num + 1)] = "期望值：" + result + ",实际值：" + re
                     self.resultcheck = "false"
             except Exception as e:
                 self.resultcheck = "false"
-                print("<p style='color:red'>" + str(jsonpath.jsonpath(dd, "$..message")) + "</p>")
+                print("<p style='color:red'>" + dd["json"]["message"] + "</p>")
         if self.resultcheck == "false" and self.maphave != {}:
             print("<p style='color:red'>测试用例执行失败!</p>")
             print("<p style='color:red'>失败数据详情：</p>")
