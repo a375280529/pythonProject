@@ -31,7 +31,7 @@ class checkCallProNew(unittest.TestCase):
             listhave=[]
             maphave={}
             findrulebiaoshi="0"
-            #nsrsbh = "异常时显示的醒目标识名"
+            nsrsbh = self.list[2][num]['nsrsbh']
             rulenum=self.list[2][num]['rulenum']
             innumber = self.list[2][num]['innumber']
             outnumber = self.list[2][num]['outnumber']
@@ -39,6 +39,7 @@ class checkCallProNew(unittest.TestCase):
             table = ""
             column = ""
             where = ""
+
             #用第三个sheet的rulenum去获取第二个sheet的规则信息
             for n in range(len(self.list[1])):
                 if rulenum==self.list[1][n]['rulenum']:
@@ -49,7 +50,7 @@ class checkCallProNew(unittest.TestCase):
                     findrulebiaoshi="1"
             #判断第三个sheet数据是否在第二个sheet有对应规则
             if findrulebiaoshi=="0":
-                maphave["数据编号" + str(num + 2)] = "未匹配到对应的规则信息"
+                maphave["数据编号" + str(num + 2)+"，纳税编号"+nsrsbh] = "未匹配到对应的规则信息"
                 self.resultcheck = "false"
                 self.listcheck.append(maphave)
                 continue
@@ -79,7 +80,7 @@ class checkCallProNew(unittest.TestCase):
             # if result[int(innumber)] == 0.0:
             #     pass
             # else:
-            #     print("<p style='color:#9400D3'>数据编号" + str(num + 2)+"的存储过程执行异常！\n</p>")
+            #     print("<p style='color:#9400D3'>数据编号" + str(num + 2)+"，纳税编号"+nsrsbh+"的存储过程执行异常！\n</p>")
             # self.assertEqual(result[int(innumber)], 0.0)
             # self.assertEqual(result[int(innumber)+1], "成功")
 
@@ -105,7 +106,7 @@ class checkCallProNew(unittest.TestCase):
                 sql="select "+t1[:-1]+" from (select "+t2[:-1]+" from "+tablelist[index]+" "+allwhere+") t where rownum=1"
                 resultsql=conOracle.queryOracleReturnMap(self.url, sql)
                 if resultsql=={}:
-                    maphave["数据编号" + str(num + 2)+"的"+tablelist[index]+"表"] = "未查询到任何数据，请检查传入sql，传入sql为"+sql
+                    maphave["数据编号" + str(num + 2)+"，纳税编号"+nsrsbh+"的"+tablelist[index]+"表"] = "未查询到任何数据，请检查传入sql，传入sql为"+sql
                     self.resultcheck = "false"
                     self.listcheck.append(maphave)
                     sqlbiaoshi = "1"
@@ -158,10 +159,10 @@ class checkCallProNew(unittest.TestCase):
                     listzc.append(mapzc)
 
                 if biaoshi == "1":
-                    maphave["数据编号"+str(num+2)]=listhave
+                    maphave["数据编号"+str(num+2)+"，纳税编号"+nsrsbh]=listhave
                     self.listcheck.append(maphave)
                 #excel
-                mapexcel["数据编号"+str(num+2)]=listzc
+                mapexcel["纳税编号"+nsrsbh+"，数据编号"+str(num+2)]=listzc
                 self.listexcel.append(mapexcel)
             except Exception as e:
                 print(e)

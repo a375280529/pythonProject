@@ -6,7 +6,7 @@ import logging
 
 def conMysql(host='',port='',user='',password='',database=''):
     # 连接数据库
-    conn = ms.connect(host=host,port=port,user=user,password=password,database=database,charset='utf8')
+    conn = ms.connect(host=host,port=int(port),user=user,password=password,database=database,charset='utf8')
     return conn
 
 #查询多条数据返回所有数据值的List
@@ -98,46 +98,40 @@ def updateMysql(host,port,user,password,database, sql):
 @:param 数据库连接,存储过程名proname,
 '''
 #调用存储过程,传参数据库连接,存储过程名
-def useMysqlPro(host,port,user,password,database,proname,inlist,outmap):
+def useMysqlPro(host,port,user,password,database,proname,inlist):
     conn = conMysql(host=host,port=port,user=user,password=password,database=database)
     cursor=conn.cursor()
     list=[]
     for inname in inlist:
         list.append(inname)
-    for outname in outmap.keys():
-        if outmap[outname]=="String":
-            outname=cursor.var(ms.STRING)
-            list.append(outname)
-        elif outmap[outname]=="Float":
-            outname = cursor.var(ms.NUMBER)
-            list.append(outname)
-        elif outmap[outname]=="datetime":
-            outname = cursor.var(ms.DATETIME)
-            list.append(outname)
-        elif outmap[outname] == "timestamp":
-            outname = cursor.var(ms.TIMESTAMP)
-            list.append(outname)
-        elif outmap[outname] == "char":
-            outname = cursor.var(ms.FIXED_CHAR)
-            list.append(outname)
-        elif outmap[outname] == "clob":
-            outname = cursor.var(ms.CLOB)
-            list.append(outname)
-        elif outmap[outname] == "blob":
-            outname = cursor.var(ms.BLOB)
-            list.append(outname)
     try:
-        result=cursor.callproc(proname,list)
-        return result
+        cursor.callproc(proname,list)
+        conn.commit()
+        sql="select"
+        for i in range(len(list)):
+            sql+=" @_"+proname+"_"+str(i)+","
+        cursor.execute(sql[:-1])
+        resout = cursor.fetchall()
+        return resout
     except Exception as e:
-        print(e)
+        return e
     finally:
         cursor.close()
         conn.close()
 
 if __name__ == '__main__':
-    pass
+    #pass
     # sql="update djangochild_project set project_name='qwe' where id='2'"
     # result=updateMysql("localhost",3306,"zhangchuan","zhangchuan","dbtest",sql)
     # print(result)
+    inlist = []
+    outmap = {}
+    inlist.append("915301276787105486")
+    inlist.append("2020-04-13")
+    inlist.append("123")
+    inlist.append("None")
+    inlist.append("None")
+    resout=useMysqlPro("192.168.85.240",3306,"zl_pals","zl_pals","zl_pals","p_bzzb_jc",inlist)
+    print(resout[0])
+
 

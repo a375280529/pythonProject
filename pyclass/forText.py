@@ -3,7 +3,6 @@
 import time
 import os
 from forpub import forFinal
-import forExcel
 
 def writeTxt(txt):
     img_path = forFinal.getIni("logger.ini")["model"]["savetxtpath"] + time.strftime("%Y%m%d",time.localtime())

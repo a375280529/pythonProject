@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..")))
 
 
 #获取config
-config=forFinal.getIni("logger.ini")
+config=forFinal.getIni("loggerDb.ini")
 
 # 用例存放位置
 
