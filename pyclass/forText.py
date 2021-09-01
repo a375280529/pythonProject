@@ -18,9 +18,10 @@ def readTxt(url):
         return txt
 
 if __name__ == '__main__':
-    dd=readTxt("D:\\asd\\辽宁.txt")
+    dd=readTxt("F:\\z\\1.txt")
     va1=""
     va2=""
+    va3=""
     map2={}
     list1=[]
     list2=[]
@@ -36,28 +37,40 @@ if __name__ == '__main__':
         # map1={}
         # map11 = {}
         kk=va.split("|")
-        if kk[1][0:6] =="912102":
+        if kk[1][0:4] =="9142":
             va1+=va
             # map1["名称"]=kk[0]
             # map1["税号"]=kk[1]
-        elif kk[1][0:6] =="922102":
+        elif kk[1][0:4] =="9242":
             va1+=va
             # map1["名称"] = kk[0]
             # map1["税号"] = kk[1]
-        elif kk[1][0:6] == "932102":
+        elif kk[1][0:4] == "9342":
             va1+=va
             # map1["名称"] = kk[0]
             # map1["税号"] = kk[1]
-        elif kk[1][0:6] == "942102":
+        elif kk[1][0:2] == "42":
             va1+=va
             # map1["名称"] = kk[0]
             # map1["税号"] = kk[1]
-        elif kk[1][0:4] == "2102":
-            va1+=va
+        elif kk[1][0:4] == "9161":
+            va2+=va
+            # map1["名称"] = kk[0]
+            # map1["税号"] = kk[1]
+        elif kk[1][0:4] == "9261":
+            va2+=va
+            # map1["名称"] = kk[0]
+            # map1["税号"] = kk[1]
+        elif kk[1][0:4] == "9361":
+            va2+=va
+            # map1["名称"] = kk[0]
+            # map1["税号"] = kk[1]
+        elif kk[1][0:2] == "61":
+            va2+=va
             # map1["名称"] = kk[0]
             # map1["税号"] = kk[1]
         else:
-            va2+=va
+            va3+=va
             # map11["名称"] = kk[0]
             # map11["税号"] = kk[1]
         # if map1!={}:
@@ -76,7 +89,28 @@ if __name__ == '__main__':
         #     list22.append(map22)
         #     map22={}
         #     b+=1
-        print(i)
+        if i%333333==0:
+            print(i)
+        if i%999999==0:
+            writeTxt(va1)
+            time.sleep(1)
+            writeTxt(va2)
+            time.sleep(1)
+            writeTxt(va3)
+            time.sleep(1)
+            va1=""
+            va2=""
+            va3 = ""
+        elif i%7094092==0:
+            writeTxt(va1)
+            time.sleep(1)
+            writeTxt(va2)
+            time.sleep(1)
+            writeTxt(va3)
+            time.sleep(1)
+            va1 = ""
+            va2 = ""
+            va3 = ""
     # if list1!=[]:
     #     map2["数据"+str(a)] = list1
     #     list2.append(map2)
@@ -86,10 +120,10 @@ if __name__ == '__main__':
     # print(list2)
     # print(list22)
 
-    writeTxt(va1)
-    time.sleep(1)
-    writeTxt(va2)
-    time.sleep(1)
+    # writeTxt(va1)
+    # time.sleep(1)
+    # writeTxt(va2)
+    # time.sleep(1)
     # forExcel.getExcel(list2)
     # time.sleep(1)
     # forExcel.getExcel(list22)

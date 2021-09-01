@@ -19,7 +19,7 @@ if __name__ == '__main__':
     #exe方式时的jar文件路径获取
     jarpath = os.path.join(os.path.abspath('.'), endpath+"jiajiemi.jar")
     # 加载刚才打包的jar文件
-    #jarpath = os.path.join(os.path.abspath('.'), 'D:/jsonfile/jiajiemi.jar')
+    jarpath = os.path.join(os.path.abspath('.'), 'F:/zxc/jiajiemi.jar')
 
     # 获取jvm.dll的文件路径
     jvmPath = jpype.getDefaultJVMPath()
@@ -37,7 +37,8 @@ if __name__ == '__main__':
     # # 使用类调用静态方法
     # javaClass.show()
 
-    javaClass.jiami()
+    fd=javaClass.decryptNsrsbh("sayjyywlpiuwjoro","0s9sef0EVcfD1SDmieqeBzUSCjeWm36J_bU2u0Jg5Ac")
+    print(fd)
     # 关闭jvm
     jpype.shutdownJVM()
 

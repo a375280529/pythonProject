@@ -4,7 +4,7 @@
 
 from datetime import datetime
 import os
-from pytz import utc
+import pytz
 import datetime
 from apscheduler.jobstores.memory import MemoryJobStore
 from apscheduler.schedulers.blocking import BlockingScheduler
@@ -69,11 +69,14 @@ if __name__ == '__main__':
     # 'coalesce': False,
     # 'max_instances': 3
     # }
+    # utc = pytz.timezone('Asia/Shanghai')
     # scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults, timezone=utc)
 
     def my_job(id='my_job',name='hello'):
         print(id, '-->', datetime.datetime.now())
         print(name)
+        utc=pytz.timezone('Asia/Shanghai')
+        print(datetime.datetime.now(tz=utc))
     jobstores = {
         'default': MemoryJobStore()
     }
@@ -89,7 +92,7 @@ if __name__ == '__main__':
     scheduler.add_job(my_job, args=['job_intervalone','123'],id='job_interval',trigger='interval', seconds=5,replace_existing=True)
     scheduler.add_job(my_job, args=['job_cronone', ], id='job_cron', trigger='cron',month='4-8,11-12', day='11-13', hour='16-17', minute='*/2',second='*/10',start_date='2021-08-13 17:02:30' ,end_date = '2021-08-13 17:10:20')
     scheduler.add_job(my_job, args=['job_once_nowone',], id='job_once_now')
-    scheduler.add_job(my_job, args=['job_date_onceone', ], id='job_date_once', trigger='date',run_date='2021-08-14 16:43:05')
+    scheduler.add_job(my_job, args=['job_date_onceone', ], id='job_date_once', trigger='date',run_date='2021-08-16 16:43:05')
     try:
         scheduler.start()
     except SystemExit:

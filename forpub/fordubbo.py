@@ -19,7 +19,7 @@ def connectDubbo():
         }
 
 
-    zk = extend.ZooKeeper('192.168.85.135:2181')
+    zk = extend.ZooKeeper('192.168.85.112:2181')
     info = zk.getDubboInfo(data['service'])
     try:
         res, data['invoke_time'] = extend.dubboTelnet(

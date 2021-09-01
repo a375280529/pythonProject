@@ -176,3 +176,20 @@ if __name__ == '__main__':
     # print(a, type(a), b, type(b), c, type(c))
     # dataInput = list(map(str, input('请输入dataInput: ').strip().split(',')))
     # print(dataInput)
+    a = 0.0  # 结果要求为12.123
+    b = 12.00  # 结果为12
+    c = 200.12000  # 结果为200.12
+    d = 200.0  # 结果为200
+    print(type(a))
+    #a=[str(a),int(a)][int(a)==a]
+    b = [str(b), int(b)][int(b) == b]
+    c = [str(c), int(c)][int(c) == c]
+    d = [str(d), int(d)][int(d) == d]
+    print(type(a))
+    print(b)
+    print(c)
+    print(d)
+
+    a='{:g}'.format(a)
+    print(a)
+

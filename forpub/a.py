@@ -138,7 +138,7 @@ if __name__ == '__main__':
     browser.maximize_window()
     # Buy_Ticket类初始化参数，从左到右：出发站，终点站，出发日期，账号，密码，购票类型(默认购买成人票，若要购买学生票，
     # 添加乘客姓名时在后面加上(学生))，把要购买票的乘客姓名放在一个列表里
-    b = Buy_Ticket('深圳', '南昌', '2021-07-24', 'qiutianyu888', 'tianyu880204', 'ADULT', ['仇天宇'])
+    b = Buy_Ticket('深圳', '南昌', '2021-08-24', 'qiutianyu888', 'tianyu880204', 'ADULT', ['仇天宇'])
     b.main()
     end = time.time()
     print('总耗时：%d秒' % int(end - begin))

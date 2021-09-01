@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+import decimal
 import unittest
 from pyclass import conMysql,forExcel
 from forpub import forFinal
@@ -56,7 +56,6 @@ class checkCallProNew(unittest.TestCase):
                 self.resultcheck = "false"
                 self.listcheck.append(maphave)
                 continue
-
             i=0
             inlist = []
             #获取和设置存储过程的入参和出参
@@ -115,6 +114,8 @@ class checkCallProNew(unittest.TestCase):
                                 mapzc={}
                                 mapzc["指标名"]=name
                                 mapzc["期望值"]=exceptmap[name]
+                                if isinstance(check[name],decimal.Decimal):
+                                    check[name]=float(check[name])
                                 mapzc["实际值"]=str(check[name])
 
                                 if exceptmap[name]=="":

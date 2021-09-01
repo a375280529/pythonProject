@@ -39,3 +39,5 @@ if __name__ == '__main__':
     result = BeautifulReport(test_suite)
 
     result.report(filename=filename, description=description, log_path=log_path)
+
+
