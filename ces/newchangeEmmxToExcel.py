@@ -61,8 +61,12 @@ def readTxt(filedir):
         if portion[1] == ".txt" and portion[0] == "page":
             with open(filedircha+"\\"+filename,'r', encoding='UTF-8') as f:
                 result=f.readlines()
-    bb = str(result).split('<Shape ID="101" Type="MainIdea">')
-    cc = '<Shape ID="101" Type="MainIdea">'+bb[1]
+    try:
+        bb = str(result).split('<Shape ID="101" Type="MainIdea">')
+        cc = '<Shape ID="101" Type="MainIdea">'+bb[1]
+    except:
+        bb = str(result).split('<Shape Type="MainIdea" ID="101">')
+        cc = '<Shape Type="MainIdea" ID="101">' + bb[1]
     dd = cc.split("</Shape>")
     array = []
     for i in range(len(dd)):
@@ -71,7 +75,7 @@ def readTxt(filedir):
         if i == len(dd) - 1:
             pass
         else:
-            ff = dd[i].split('<Shape ID="')
+            ff = dd[i].split('ID="')
             gg = ff[1].split('"')
             hh = dd[i].split("</tp>")
             ii = ""
