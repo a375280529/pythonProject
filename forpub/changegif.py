@@ -2,7 +2,7 @@ import random
 
 def rd():
     lsGiftIn = {'Jack':'apple', 'June':'ball', 'Mary':'card', 'Duke':'doll', 'James':'egg',
-                'Tina':'flute', 'Tom':'coffee'}  # 存储参与者的姓名和自己带来的礼物
+                'Tina':'flute', 'Tom':'coffee', 'MAIN':'robbit', 'Dank':'fish', 'Bank':'Money',}  # 存储参与者的姓名和自己带来的礼物
     lsGiftOut = {}  # 存储交换后的结果
     n = len(lsGiftIn)  # 参与人数
     gifts = [lsGiftIn[i] for i in lsGiftIn.keys()]  # 未分配出去的礼物

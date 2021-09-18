@@ -41,9 +41,10 @@ if __name__ == '__main__':
         # outmap["xypj_1"] = "String"
 
         # 调用存储过程
-        result = conOracle.usePro("bzzb_test/bzzb_test@192.168.85.81:1521/emserver", "P_BZZB_GSSF_FH", inlist, outmap)
+        result = conOracle.usePro("bzzb_test/bzzb_test@192.168.85.81:1521/emserver", "p_bzzb_cwbb", inlist, outmap)
         #result = conOracle.usePro("tjbank_test/tjbank_test@192.168.85.81:1521/emserver", "p_mx_tjyh_hbh", inlist, outmap)
         print(result)
+        
         #验证存储过程是否调用成功
         if result[3] == 0.0:
             pass
@@ -51,7 +52,7 @@ if __name__ == '__main__':
             print("异常")
 
 
-        sql2 = "select t.* from (select NSRSBH,SF_FH_BZXR_1Y_QY,SF_FH_BZXR_1Y_GR,SF_FH_SXR_1Y_QY,SF_FH_SXR_1Y_GR,SF_FH_FLDJF_BG_2Y_QY,SF_FH_FLDJF_BG_2Y_GR,SF_FH_XZCRJ_5Y_GR,SF_FH_XZGXF_5Y_QY,SF_FH_XZGXF_5Y_GR from T_FH_SF_ZB where nsrsbh='%s' order by lrsj desc) t where rownum=1" % (lists[dd]["NSRSBH"])
+        sql2 = "select t.* from (select nsrsbh,lrsj,SW_CWBB_SYZQY_1 from T_ZCFZB_XM where nsrsbh='%s' order by lrsj desc) t where rownum=1" % (lists[dd]["NSRSBH"])
         #sql2 = "select t.* from (select ysxed,code,reason,bz,djxh,nsrmc,frxm,frsfzjhm,sfzjlx,nsrsbh_wj,zchj_1,qbxse_6_avg,kyrq_1,hyml_1,jkze_1,zcfzl_1,qbxse_12_byxs,fr_chigu,fr_csrq,qbxse_zzl,xypf_1 from t_gsyh_result where NSRSBH='%s' and lrsj is not null order by lrsj desc) t where rownum=1" % (lists[dd]["NSRSBH"])
 
         print(sql2)

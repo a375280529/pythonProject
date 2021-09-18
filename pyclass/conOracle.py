@@ -141,4 +141,12 @@ if __name__ == '__main__':
     # sql="select t.sw_bg_bsry_01m,t.* from T_JC_ZB t where t.nsrsbh='440100593700191'"
     # result=queryOracleReturnMap("vz_bz4/vz_bz4@192.168.85.81:1521/emserver",sql)
     # print(result)
-
+    sql="select t.nsrsbh from (select * from pr_head_info order by update_time asc) t where rownum<=10"
+    result = queryOracleAllReturnList("intergration_hbyh/intergration_hbyh@192.168.85.61:1521/emserver", sql)
+    print(result)
+    aa="nsrsbh in ("
+    for idf in result:
+        print(idf["NSRSBH"])
+        aa+="'"+idf["NSRSBH"]+"',"
+    aa=aa[:-1]+")"
+    print(aa)

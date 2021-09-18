@@ -126,7 +126,8 @@ def go1():
 
 @app.route("/gateway/anhui",methods=['POST'])
 def go2():
-    paths=re.url
+    #paths=re.url
+    paths=re.path
     # 获取headers加密密钥
     encrypt_key = re.headers.get("encrypt-key").strip()
     # 获取加密的税号
@@ -137,11 +138,14 @@ def go2():
     paths+="?nsrsbh="+str(nsrsbh)
 
     #解密后进行路由到指定税号配置的moco报文
+    print(paths)
     if paths in "/gateway/anhui?nsrsbh=%s" % nsrsbh:
         try:
             """请求"""
+            print(1111111111)
             httpClient = request.Request('http://%s:%s/gateway/anhui?nsrsbh=%s' % (moco_ip, moco_port, nsrsbh))
             """响应"""
+            print(2222222222)
             res = request.urlopen(httpClient)
             response = res.read()
             print(response.decode('utf-8'))

@@ -121,7 +121,7 @@ def readExcelRealGeShi(url):
 
 #读取excel的所有sheet
 def readExcelSheet(url):
-    sheet = pd.read_excel(url, sheet_name=None)
+    sheet = pd.read_excel(url, sheet_name=None, converters={'nsrsbh':str})
     listall=[]
     for va in sheet.values():
         va = va.to_dict(orient='records')
@@ -134,7 +134,11 @@ def readExcelSheet(url):
                 elif isinstance(va[i][name], datetime.datetime):
                     map[name] = datetime.datetime.strftime(va[i][name], '%Y/%m/%d')
                 elif isinstance(va[i][name], float):
-                    map[name]='{:g}'.format(va[i][name])
+                    if str(va[i][name]) == "nan":
+                        map[name] = str(None)
+                    else:
+                        map[name]=str(va[i][name])
+                    #map[name]='{:g}'.format(va[i][name])
                 else:
                     if str(va[i][name]) == "nan":
                         map[name] = str(None)

@@ -3,7 +3,7 @@
 from pyclass import conOracle,forExcel
 
 if __name__ == '__main__':
-    ff=forExcel.readExcelSheet("F:\\moxing\\a.xlsx")
+    ff=forExcel.readExcelSheet("F:\\asd\\yiwan.xlsx")
     map1={}
     list1=[]
     list2=[]

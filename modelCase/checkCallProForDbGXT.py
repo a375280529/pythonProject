@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import decimal
+
 import unittest
-from pyclass import conMysql,forExcel
+from pyclass import conDb2,forExcel
 from forpub import forFinal
 
 #通用存储过程场景测试
@@ -13,7 +13,7 @@ class checkCallProNew(unittest.TestCase):
         self.listexcel=[]
         self.listcheck=[]
         self.resultcheck="true"
-        self.ini=forFinal.getIni("loggerMysql.ini")
+        self.ini=forFinal.getIni("loggerDb.ini")
         self.host=self.ini["callpro"]["callproConnectIp"]
         self.port=self.ini["callpro"]["callproConnectPort"]
         self.name = self.ini["callpro"]["callproConnectUsername"]
@@ -56,6 +56,7 @@ class checkCallProNew(unittest.TestCase):
                 self.resultcheck = "false"
                 self.listcheck.append(maphave)
                 continue
+
             i=0
             inlist = []
             #获取和设置存储过程的入参和出参
@@ -69,7 +70,7 @@ class checkCallProNew(unittest.TestCase):
             biaoshi="0"
 
             #调用存储过程
-            conMysql.useMysqlPro(self.host,self.port,self.name,self.password,self.table, proname, inlist)
+            conDb2.useDbPro(self.host,self.port,self.name,self.password,self.table, proname, inlist)
 
             sqlbiaoshi="0"
             checklist=[]
@@ -82,15 +83,19 @@ class checkCallProNew(unittest.TestCase):
                         allwhere+="'"+self.list[2][num]["value"+ss]+"'"
                     else:
                         allwhere+=ss
-                sql="select "+columnlist[index]+" from "+tablelist[index]+" "+allwhere+" limit 1"
-                resultsql=conMysql.queryMysqlReturnMap(self.host,self.port,self.name,self.password,self.table, sql)
-                if resultsql=={}:
-                    maphave["数据编号" + str(num + 2)+"，纳税编号"+nsrsbh+"的"+tablelist[index]+"表"] = "未查询到任何数据，请检查传入sql，传入sql为"+sql
+                sql="select "+columnlist[index]+" from "+tablelist[index]+" "+allwhere
+                resultsql=conDb2.queryDbAllReturnList(self.host,self.port,self.name,self.password,self.table, sql)
+                if len(resultsql)==0:
+                    maphave["数据编号" + str(num + 2)+"，纳税编号"+nsrsbh+"的"+tablelist[index]+"表"] = "结果表中未查询到任何数据，存储过程执行异常"
                     self.resultcheck = "false"
                     self.listcheck.append(maphave)
                     sqlbiaoshi = "1"
                     maphave={}
-                checklist.append(resultsql)
+                    continue
+                mapre = {}
+                for resultva in resultsql:
+                    mapre[resultva["INDEX_CODE"].upper()] = resultva["INDEX_VALUE"]
+                checklist.append(mapre)
 
             if sqlbiaoshi=="1":
                 continue
@@ -111,11 +116,9 @@ class checkCallProNew(unittest.TestCase):
                         for checkname in check.keys():
                             if name == checkname:
                                 #excel
-                                mapzc={}
+                                mapzc = {}
                                 mapzc["指标名"]=name
                                 mapzc["期望值"]=exceptmap[name]
-                                if isinstance(check[name],decimal.Decimal):
-                                    check[name]=float(check[name])
                                 mapzc["实际值"]=str(check[name])
 
                                 if exceptmap[name]=="":
@@ -127,13 +130,10 @@ class checkCallProNew(unittest.TestCase):
                                         biaoshi = "1"
                                     excelishave = "1"
                                 else:
-                                    if str(check[name]) != exceptmap[name] and str(check[name])+".0" != exceptmap[name] and str(check[name]) != exceptmap[name]+".0":
-                                        if exceptmap[name] == "0.0" and str(check[name]) == "None":
-                                            pass
-                                        else:
-                                            self.resultcheck = "false"
-                                            listhave.append(name + ",期望值：" + exceptmap[name] + ",实际值：" + str(check[name]))
-                                            biaoshi = "1"
+                                    if str(check[name]).strip() != exceptmap[name] and str(check[name]).strip()+".0" != exceptmap[name] and str(check[name]).strip() != exceptmap[name]+".0" and str(check[name]).strip() != exceptmap[name]+"000":
+                                        self.resultcheck = "false"
+                                        listhave.append(name+",期望值："+exceptmap[name]+",实际值："+str(check[name]))
+                                        biaoshi = "1"
                                     excelishave="1"
                     if excelishave=="0":
                         self.resultcheck = "false"
@@ -146,7 +146,7 @@ class checkCallProNew(unittest.TestCase):
                     maphave["数据编号"+str(num+2)+"，纳税编号"+nsrsbh]=listhave
                     self.listcheck.append(maphave)
                 #excel
-                mapexcel["纳税编号"+nsrsbh+"，数据编号"+str(num+2)]=listzc
+                mapexcel["纳税编号"+nsrsbh]=listzc
                 self.listexcel.append(mapexcel)
             except Exception as e:
                 print(e)

@@ -10,11 +10,13 @@ sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..")))
 
 
 #获取config
-config=forFinal.getIni("loggerDb.ini")
+#config=forFinal.getIni("loggerAhp.ini")
+config=forFinal.getIni("loggerLiangHua.ini")
 
 # 用例存放位置
 
 test_case_path = ".\\"+config["path"]["casepath"]
+
 
 # 测试报告存放位置
 nowday=time.strftime("%Y%m%d", time.localtime())
@@ -34,10 +36,11 @@ description = name
 pattern = config["path"]["pattern"]
 
 if __name__ == '__main__':
+    print("执行中。。。")
     test_suite = unittest.defaultTestLoader.discover(test_case_path, pattern=pattern)
 
     result = BeautifulReport(test_suite)
 
     result.report(filename=filename, description=description, log_path=log_path)
-
+    print("执行完成。。。")
 

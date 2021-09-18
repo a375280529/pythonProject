@@ -2,13 +2,14 @@
 # -*- coding: utf-8 -*-
 import json
 
+import turtle
 import jsonpath
 import pandas as pd
 from pyclass import forExcel as fe
 import re
 from ctypes import *
 import forFinal
-
+from pyclass import forText as ft
 
 def getStr(alllist,array,retStr,j,indexId):
     id=j["id"]
@@ -32,8 +33,41 @@ def getStr(alllist,array,retStr,j,indexId):
         if indexId.split("@@@@@@")[1]=="":
             alllist.append(retStr)
 
+def quzero(val):
+    try:
+        dex=val.index('.')
+        listv=val.split('.')
+        lista=[]
+        listb=[]
+        biaoshi=0
+        value=listv[0]
+        ot=""
+        for i in listv[1]:
+            lista.append(i)
+        for b in reversed(lista):
+            if biaoshi==0:
+                if b!="0":
+                    listb.append(b)
+                    biaoshi=1
+                else:
+                    pass
+            else:
+                listb.append(b)
+        for c in reversed(listb):
+            ot+=c
+        if ot=="":
+            pass
+        else:
+            value+="."+ot
+        return value
+    except:
+        return val
 
 if __name__ == '__main__':
+    bb = '1.01001'
+    zx = quzero(bb)
+    print(zx)
+
     # json = "...";
     # List < String > authors = JsonPath.read(json, "$.store.book[*].author");
     dd='{"aa":"bb","cc":"dd"}'
@@ -176,7 +210,7 @@ if __name__ == '__main__':
     # print(a, type(a), b, type(b), c, type(c))
     # dataInput = list(map(str, input('请输入dataInput: ').strip().split(',')))
     # print(dataInput)
-    a = 0.0  # 结果要求为12.123
+    a = 1.0110 # 结果要求为12.123
     b = 12.00  # 结果为12
     c = 200.12000  # 结果为200.12
     d = 200.0  # 结果为200
@@ -192,4 +226,53 @@ if __name__ == '__main__':
 
     a='{:g}'.format(a)
     print(a)
+
+    zva=""
+    j=0
+    for i in range(11):
+        if i==0:
+            zva+="........1..............1........."+"\n"
+        elif i==1:
+            zva+=".....1.....1........1......1....."+"\n"
+        elif i==2:
+            zva+="...1.........1....1..........1..."+"\n"
+        elif i==3:
+            zva+="..1.............1..............1."+"\n"
+        elif i==4:
+            zva+="...1.........................1..."+"\n"
+        elif i==5:
+            zva+=".....1.....................1....."+"\n"
+        elif i==6:
+            zva+=".......1.................1......."+"\n"
+        elif i==7:
+            zva+=".........1.............1........."+"\n"
+        elif i==8:
+            zva+="............1........1..........."+"\n"
+        elif i==9:
+            zva+="..............1....1............."+"\n"
+        else:
+            zva += ".................1..............."
+
+    dfa="1zxc"
+    cn=dfa.upper()
+    print(cn=="1ZXC")
+
+
+    afd=['SW_JCXX_NSRMC,期望值：部署测试企业用104324营有限公司,实际值：None', 'SW_JCXX_CLNX,期望值：6.97,实际值：None', 'SW_JCXX_HY,期望值：5146,实际值：None', 'SW_JCXX_NSRXYPJ,期望值：B,实际值：未评级', 'SW_JCXX_NSRZTDM,期望值：3,实际值：None', 'SW_JCXX_NSRLXDM,期望值：3,实际值：None', 'SW_JCXX_DJZCLXDM,期望值：173,实际值：None', 'SW_JCXX_DJZCLXMC,期望值：私营有限责任公司,实际值：None', 'SW_JCXX_XZQH,期望值：1201,实际值：None', 'SW_LXR_FRXM,期望值：周如江,实际值：None', 'SW_LXR_FRNL,期望值：60.0,实际值：None', 'SW_LXR_FRZJHM,期望值：12010919591009**1*,实际值：None', 'SW_TZF_GQFSD,期望值：0.52,实际值：None', 'SW_JCXX_ZYRS,期望值：4.0,实际值：None', 'SW_SB_SBXX_SFQS,期望值：0,实际值：1', 'SW_SB_SSSQZ_MIN,期望值：2017-01-01,实际值：None', 'SW_SB_SSSQZ_MAX,期望值：2019-12-31,实际值：None', 'SW_SB_SCSB,期望值：39.0,实际值：None', 'SW_SB_LJSB0_24M,期望值：1,实际值：0', 'SW_SB_LSXS_12M,期望值：71.0092,实际值：None', 'SW_SB_YNSE_ZZS_12M,期望值：1824.18,实际值：0.0', 'SW_SB_ZDLXSB0_24M,期望值：1,实际值：0', 'SW_SB_QBXSE_03M,期望值：28048.54,实际值：0.0', 'SW_SB_QBXSE_06M,期望值：33174.76,实际值：0.0', 'SW_SB_QBXSE_12M,期望值：60805.81,实际值：0.0', 'SW_SB_QBXSE_24M,期望值：178551.92,实际值：0.0', 'SW_SB_NSZE_ZZSQYSDS_24M,期望值：2842.09,实际值：0.0', 'SW_SB_QBXSEZZL_06M,期望值：-0.6906,实际值：None', 'SW_SB_QBXSEZZL_12M,期望值：-0.4836,实际值：None', 'SW_SB_QBXSEZZL_06M_A,期望值：-0.6906,实际值：0.0', 'SW_SB_QBXSEZZL_12M_A,期望值：-0.4836,实际值：0.0', 'SW_SB_QBXSEHBZZL_03M_A,期望值：4.4716,实际值：0.0', 'SW_SB_QBXSEHBZZL_03M,期望值：4.4716,实际值：None', 'SW_SB_NSZEZZL_ZZSQYSDS_12M_A,期望值：-1.0,实际值：0.0', 'SW_SB_QBXSE_02Q,期望值：33174.76,实际值：0.0', 'SW_SB_YQWSB,期望值：0,实际值：1', 'SW_SB_QBXSEZZL_06M_Y,期望值：-0.6906,实际值：None', 'SW_SB_PJTQSBTS_ZZS_12M,期望值：6.0,实际值：None', 'SW_SB_LSXS_12M_M,期望值：0.7101,实际值：None', 'SW_SB_QBXSEZZL_03M_Y,期望值：-0.7039,实际值：None', 'SW_SBZS_SBZSXX_SFQS,期望值：0,实际值：1', 'SW_SBZS_NSZE_ZZSQYSDS_24M,期望值：4910.05,实际值：0.0', 'SW_SBZS_NSZE_ZZL_ZZS_12M_Y,期望值：-1.0,实际值：None', 'SW_SBZS_SFLHYPLD_06M,期望值：-1.0,实际值：None', 'SW_CWBB_SYZQY_1,期望值：994464.49,实际值：None', 'SW_CWBB_YYSR_1,期望值：117746.11,实际值：None', 'SW_CWBB_JLR_1,期望值：-1381.11,实际值：None', 'SW_CWBB_XSJLL,期望值：-0.0117,实际值：None', 'SW_CWBB_YYLRZCHJ_Y,期望值：-0.002,实际值：None', 'SW_CWBB_JYYZB_ZZL_Y,期望值：0.1241,实际值：None', 'SW_CWBB_ZZC_ZZL_Y,期望值：0.0447,实际值：None']
+    print(len(afd))
+
+
+    a="0.0"
+    b="None"
+    c="22"
+    if (a!="0.0" or b!="None") and c=="22":
+        print(123)
+
+    aa=3.0
+    print(int(aa))
+
+
+
+
+
 
