@@ -37,7 +37,10 @@ message.attach(msg)
 att1 = MIMEText(open('aa.txt', 'rb').read(), 'base64', 'utf-8')
 att1["Content-Type"] = 'application/octet-stream'
 # 这里的filename可以任意写，写什么名字，邮件中显示什么名字
-att1["Content-Disposition"] = 'attachment; filename="test.txt"'
+#附件名称可以为中文
+att1.add_header("Content-Disposition", "attachment", filename=("utf-8", "", "啊啊啊.txt"))
+#附件名称不能为中文
+#att1["Content-Disposition"] = 'attachment; filename="aa.txt"'
 message.attach(att1)
 
 try:
