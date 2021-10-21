@@ -132,7 +132,10 @@ def readExcelSheet(url):
                 if isinstance(va[i][name], str):
                     map[name] = va[i][name]
                 elif isinstance(va[i][name], datetime.datetime):
-                    map[name] = datetime.datetime.strftime(va[i][name], '%Y/%m/%d')
+                    if str(va[i][name])=="NaT":
+                        map[name] = str(None)
+                    else:
+                        map[name] = datetime.datetime.strftime(va[i][name], '%Y/%m/%d')
                 elif isinstance(va[i][name], float):
                     if str(va[i][name]) == "nan":
                         map[name] = str(None)

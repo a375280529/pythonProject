@@ -61,8 +61,8 @@ def getXmlNode(name):
     print(node.nodeName)
     tagname=node.getElementsByTagName("name")
     for tname in tagname:
-        if tname.hasAttribute("name"):
-            bsname=tname.getAttribute("name")
+        if tname.hasAttribute("bname"):
+            bsname=tname.getAttribute("bname")
             if bsname==name:
                 connectname=tname.getElementsByTagName("connectname")[0].childNodes[0].data
                 connectpassword = tname.getElementsByTagName("connectpassword")[0].childNodes[0].data
