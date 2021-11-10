@@ -1,0 +1,5 @@
+pyinstaller -F main.py -p \modelCase\checkCallProNewBiaoZhun.py -p \modelCase\conDb2.py -p \modelCase\forExcel.py -p \modelCase\forFinal.py --add-data="c:\program files\python36\lib\site-packages\clidriver;.\clidriver"  --add-binary "C:\Program Files\Python36\Lib\site-packages\ibm_db_dlls\ibm_db.dll;.\ibm_db_dlls"
+
+pyinstaller .\main.spec
+
+python连接db2时报错SQLSTATE=58004，SQLCODE=-1042的话，需要加上AUTHENTICATION=SERVER; 
