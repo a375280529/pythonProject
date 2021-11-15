@@ -42,6 +42,24 @@ def getJsonForPostInterface(url,param,headers):
         result["cookies"] = r.cookies
     return result
 
+def getJsonForPostDataInterface(url,param,headers):
+    result = {}
+    r = requests.post(url,data=param, headers = headers)
+    # 用自带的json把字符串转成字典
+    try:
+        dictinfo = json.loads(r.text)
+        result["json"] = dictinfo
+        result["code"] = r.status_code
+        result["headers"] = r.headers
+        result["cookies"] = r.cookies
+    except:
+        dictinfo = r.text
+        result["json"] = dictinfo
+        result["code"] = r.status_code
+        result["headers"] = r.headers
+        result["cookies"] = r.cookies
+    return result
+
 if __name__ == '__main__':
     # url="https://apis.juhe.cn/simpleWeather/"
     # url1="http://apis.juhe.cn/simpleWeather/query"
