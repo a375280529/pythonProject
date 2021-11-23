@@ -143,13 +143,19 @@ class checkCallProNew(unittest.TestCase):
                                     if str(check[name]) == "None":
                                         self.resultcheck = "false"
                                         listhave.append(name + ",期望值：" +exceptmap[name]+ ",实际值：" + str(check[name]))
+                                        mapzc["red"] = "true"
                                         biaoshi = "1"
+                                    else:
+                                        mapzc["red"] = "false"
                                     excelishave = "1"
                                 else:
                                     if str(check[name]) != exceptmap[name] and str(check[name])+".0" != exceptmap[name] and str(check[name]) != exceptmap[name]+".0":
                                         self.resultcheck = "false"
                                         listhave.append(name+",期望值："+exceptmap[name]+",实际值："+str(check[name]))
+                                        mapzc["red"] = "true"
                                         biaoshi = "1"
+                                    else:
+                                        mapzc["red"] = "false"
                                     excelishave="1"
                     if excelishave=="0":
                         self.resultcheck = "false"
@@ -167,7 +173,7 @@ class checkCallProNew(unittest.TestCase):
             except Exception as e:
                 print(e)
         #excel
-        forExcel.getExcel(self.listexcel)
+        forExcel.getExcelColor(self.listexcel)
         #打印出用例执行结果信息
         if self.resultcheck=="true":
             print("<p style='color:green'>测试用例执行成功!</p>")
