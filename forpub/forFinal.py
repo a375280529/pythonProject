@@ -5,6 +5,7 @@ import configparser
 import random
 import pandas as pd
 from xml.dom.minidom import parse
+import base64
 
 # 获取配置文件相对路径
 def getIniPath():
@@ -88,3 +89,77 @@ def readAllExcelSheet():
     for k, v in sheet.items():
         v = v.to_dict(orient='records')
         print(k, v)
+
+#判断是否全是中文
+def is_all_chinese(strs):
+    for _char in strs:
+        if not '\u4e00' <= _char <= '\u9fa5':
+            return False
+    return True
+
+#检验是否含有中文字符
+def is_contains_chinese(strs):
+    for _char in strs:
+        if '\u4e00' <= _char <= '\u9fa5':
+            return True
+    return False
+
+#使用base64加密
+def encryption_base64(str_cont):
+    bytes_cont = str_cont.encode("utf-8")
+    result = base64.b64encode(bytes_cont)
+    return result
+
+
+#解密base64格式的文本
+def decrypt_base64(str_cont):
+    result = base64.b64decode(str_cont).decode("utf-8")
+    return result
+
+#进度条
+def progress(percent):
+    if percent > 1:
+        percent = 1
+    res = int(50 * percent) * '>'
+    print('\r[%-50s] %d%%' % (res, int(100 * percent)), end='')
+
+#数组进行冒泡排序,从小到大
+def maopao(lists):
+    # 冒泡排序
+    count = len(lists)
+    for i in range(0, count):
+        for j in range(i + 1, count):
+            if lists[i] > lists[j]:
+                lists[i], lists[j] = lists[j], lists[i]
+    return lists
+
+#去除小数点末尾的0，val为str
+def quzero(val):
+    try:
+        #dex=val.index('.')
+        listv=val.split('.')
+        lista=[]
+        listb=[]
+        biaoshi=0
+        value=listv[0]
+        ot=""
+        for i in listv[1]:
+            lista.append(i)
+        for b in reversed(lista):
+            if biaoshi==0:
+                if b!="0":
+                    listb.append(b)
+                    biaoshi=1
+                else:
+                    pass
+            else:
+                listb.append(b)
+        for c in reversed(listb):
+            ot+=c
+        if ot=="":
+            pass
+        else:
+            value+="."+ot
+        return value
+    except:
+        return val
