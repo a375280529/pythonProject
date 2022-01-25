@@ -6,7 +6,7 @@ from BeautifulReport import BeautifulReport
 import configparser
 import sys
 import os
-from modelCase import ayanshilei,ayanshilei1
+from modelCase.ayanshilei1 import checkCallProNew
 import shutil
 sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..")))
 
@@ -47,8 +47,8 @@ pattern = config["path"]["pattern"]
 
 if __name__ == '__main__':
     print("执行中。。。")
-    # test_suite=unittest.TestSuite()
-    # test_suite.addTests(["ayanshilei","ayanshilei1"])
+    #test_suite=unittest.TestSuite()
+    #test_suite.addTests([checkCallProNew("test_call_pro"),checkCallProNew("test_call_pro1")])
     test_suite = unittest.defaultTestLoader.discover(test_case_path, pattern=pattern)
     result = BeautifulReport(test_suite)
     result.report(filename=filename, description=description, log_path=log_path)
