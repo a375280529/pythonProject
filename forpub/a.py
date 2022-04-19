@@ -26,28 +26,31 @@ class Buy_Ticket():
     def login(self):
         browser.get(self.login_url)
         time.sleep(0.5)
-        try:
-            wait.WebDriverWait(browser, 5).until(
-                EC.element_to_be_clickable((By.CLASS_NAME, 'login-hd-account'))).click()
-            input_name = browser.find_element_by_id('J-userName')
-            input_pd = browser.find_element_by_id('J-password')
-            input_name.send_keys(self.username)
-            input_pd.send_keys(self.password)
-            start_end, check = self.add_cookie()
-            # time.sleep(5)
-            c = codeee.Code(browser)  # 调用验证码识别模块
-            c.main()
-            print('登录成功！')
-            time.sleep(0.8)
-            print(browser.current_url)
+        #try:
+            #wait.WebDriverWait(browser, 5).until(
+                #EC.element_to_be_clickable((By.CLASS_NAME, 'login-hd-code active'))).click()
+        time.sleep(1)
+        input_name = browser.find_element_by_id('J-userName')
+        input_pd = browser.find_element_by_id('J-password')
+        input_login = browser.find_element_by_id('J-login')
+        input_name.send_keys(self.username)
+        input_pd.send_keys(self.password)
+        input_login.click()
+        start_end, check = self.add_cookie()
+        # time.sleep(5)
+        c = codeee.Code(browser)  # 调用验证码识别模块
+        c.main()
+        print('登录成功！')
+        time.sleep(0.8)
+        print(browser.current_url)
             # try:
             # wait.WebDriverWait(browser, 3).until(EC.element_to_be_clickable((By.CLASS_NAME,'btn.btn-primary.ok'))).click()
             # except NoSuchElementException:
             # pass
-            self.check(start_end, check)
-        except NoSuchElementException:
-            print('没有找到元素')
-            self.login()
+        self.check(start_end, check)
+        #except NoSuchElementException:
+            #print('没有找到元素')
+            #self.login()
 
     # 2020.12.19更新
     def add_cookie(self):
@@ -117,7 +120,8 @@ class Buy_Ticket():
         #browser.find_element_by_id('1F').click()
         #browser.find_element_by_id('qr_submit_id').click()
         time.sleep(1.5)
-        wait.WebDriverWait(browser, 1).until(EC.element_to_be_clickable((By.ID, 'qr_submit_id'))).click()
+        #wait.WebDriverWait(browser, 1).until(EC.element_to_be_clickable((By.ID, 'qr_submit_id'))).click()
+        browser.find_element_by_id('qr_submit_id').click()
         print('车票预定成功！请在30分钟内完成付款！')
 
     def main(self):
@@ -133,12 +137,15 @@ if __name__ == '__main__':
     begin = time.time()
     # 隐藏浏览器
     options = webdriver.ChromeOptions()
+    #C:\Users\vzoom1\AppData\Local\Google\Chrome\Application
+    options = webdriver.ChromeOptions()
+    options.binary_location = "C:\\Users\\vzoom1\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe"
     options.add_argument("--disable-blink-features=AutomationControlled")  # 2020.03.28更新
     browser = webdriver.Chrome(options=options)
     browser.maximize_window()
     # Buy_Ticket类初始化参数，从左到右：出发站，终点站，出发日期，账号，密码，购票类型(默认购买成人票，若要购买学生票，
     # 添加乘客姓名时在后面加上(学生))，把要购买票的乘客姓名放在一个列表里
-    b = Buy_Ticket('深圳', '南昌', '2021-08-24', 'qiutianyu888', 'tianyu880204', 'ADULT', ['仇天宇'])
+    b = Buy_Ticket('深圳', '南昌', '2021-12-20', 'qiutianyu888', 'tianyu880204', 'ADULT', ['仇天宇'])
     b.main()
     end = time.time()
     print('总耗时：%d秒' % int(end - begin))

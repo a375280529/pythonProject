@@ -89,10 +89,11 @@ def updateMysql(host,port,user,password,database, sql):
     except:
         conn.rollback()
         logging.error("异常sql！")
-    # 关闭游标
-    cursor.close()
-    # 关闭数据库连接
-    conn.close()
+    finally:
+        # 关闭游标
+        cursor.close()
+        # 关闭数据库连接
+        conn.close()
 
 '''
 @:param 数据库连接,存储过程名proname,
@@ -121,17 +122,20 @@ def useMysqlPro(host,port,user,password,database,proname,inlist):
 
 if __name__ == '__main__':
     #pass
-    # sql="update djangochild_project set project_name='qwe' where id='2'"
-    # result=updateMysql("localhost",3306,"zhangchuan","zhangchuan","dbtest",sql)
+    for i in range(10):
+        print(i+1)
+        sql="INSERT into djangochild_project (id,project_name,project_enname,project_desc,status) values ('%s','%s','%s','%s','%s')"%(str(i+100),"执行"+str(i+1),"晓得啥"+str(i+1),"信息的"+str(i+1),str(i+1))
+        print(sql)
+        updateMysql("localhost",3306,"zhangchuan","zhangchuan","dbtest",sql)
     # print(result)
-    inlist = []
-    outmap = {}
-    inlist.append("915301276787105486")
-    inlist.append("2020-04-13")
-    inlist.append("123")
-    inlist.append("None")
-    inlist.append("None")
-    resout=useMysqlPro("192.168.85.240",3306,"zl_pals","zl_pals","zl_pals","p_bzzb_jc",inlist)
-    print(resout[0])
+    # inlist = []
+    # outmap = {}
+    # inlist.append("915301276787105486")
+    # inlist.append("2020-04-13")
+    # inlist.append("123")
+    # inlist.append("None")
+    # inlist.append("None")
+    # resout=useMysqlPro("192.168.85.240",3306,"zl_pals","zl_pals","zl_pals","p_bzzb_jc",inlist)
+    # print(resout[0])
 
 

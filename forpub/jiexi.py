@@ -14,7 +14,7 @@ from pyclass import forExcel as fe
 if __name__ == '__main__':
     url="http://www.100ppi.com/mprice/plist-1-300-1.html"
     ff=res.get(url)
-    soup = BeautifulSoup(ff.text, 'lxml')
+    soup = BeautifulSoup(ff.text, 'xml')
     data = soup.select('table.lp-table.mb15')
     #print(data)
     lista=[]
@@ -62,12 +62,12 @@ if __name__ == '__main__':
     mapza[dd]=listzb
     listza.append(mapza)
     print(listza)
-    fe.getExcel(listza)
+    #fe.getExcel(listza)
 
     #print(data)
     # url = 'http://www.cntour.cn/'
     # strhtml = re.get(url)
-    # soup = BeautifulSoup(strhtml.text, 'lxml')
+    # soup = up(strhtml.text, 'lxml')
     # #"#main > div > div.mtop.firstMod.clearfix > div.centerBox > ul.newsList > li:nth-child(2) > a"
     # data = soup.select('#main>div>div.mtop.firstMod.clearfix>div.centerBox>ul.newsList>li:nth-child(2)>a')
     # print(data)

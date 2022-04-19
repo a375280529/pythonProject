@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import Flask,request,jsonify,render_template
+from flask import Flask,request,jsonify,render_template,Response
+import json
 import config
 from pyclass import conOracle as con
 import traceback
@@ -41,6 +42,12 @@ def jkzdh():
 	else:
 		return jsonify({"msg": "成功", "code": 200})
 
+@app.route('/add', methods=['POST'])
+def add():
+    result = {'sum': request.json['a'] + request.json['b'],"code":200,"msg":"成功"}
+    resp=Response(json.dumps(result), mimetype='application/json')
+    resp.headers.add('Server', 'python flask')
+    return resp
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

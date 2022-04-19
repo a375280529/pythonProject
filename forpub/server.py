@@ -109,10 +109,16 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
 # def hello():
 #     return render_template("login.html")
 
-@app.route("/gateway/anhui2")
+@app.route("/gateway/anhui2",methods=['POST','GET'])
 def go():
     print(re.url)
-    print(re.args['nsrsbh'])
+    print(dict(re.args))
+    print(333)
+    #print(re.args['nsrsbh'])
+    print(re.data)
+    ff=str(re.data)
+    gg=ff.split("<fwbm>")[1].split("</fwbm>")[0]
+    print(gg)
     return "jjjjjjjj"
 
 @app.route("/gateway/anhui1",methods=['POST'])
@@ -160,7 +166,7 @@ def go2():
 if __name__ == "__main__":
     try:
         jiemibibao()
-        app.run()
+        app.run('192.168.87.65',8080,debug=True)
     except Exception as e:
         print(e)
     finally:

@@ -51,7 +51,7 @@ def quzero(val):
 
 #读取原始单元格格式的excel
 def readExcelRealGeShi(url):
-    df = pd.read_excel(url, sheet_name=0, converters={'sw_jcxx_hy':str,'sw_jcxx_nsrztdm':str})
+    df = pd.read_excel(url, sheet_name=0, converters={'sw_jcxx_hy':str,'sw_jcxx_nsrztdm':str,'nsrsbh':str,'sw_jcxx_xzqh':str})
     list = []
     for i in range(len(df)):
         map = {}
@@ -107,7 +107,9 @@ def readini(ini):
 
 # 获取配置文件相对路径
 def getIniPath():
-    exepath = os.path.realpath(sys.executable)
-    endpath = exepath.split(exepath.split("\\")[-1])[0]
-    path=os.path.join(os.path.abspath('.'), endpath + "iniFile\\")
+    # exepath = os.path.realpath(sys.executable)
+    # endpath = exepath.split(exepath.split("\\")[-1])[0]
+    # path=os.path.join(os.path.abspath('.'), endpath + "iniFile\\")
+    path = os.path.dirname(os.path.abspath(__file__))
+    path = path.split(path.split('\\')[-1])[0] + "iniFile" + "\\"
     return path

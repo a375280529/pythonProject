@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import pickle
+
 import jpype
 import os
 import time
@@ -9,7 +11,7 @@ if __name__ == '__main__':
     基本的开发流程如下：
     ①、使用jpype开启jvm
     ②、加载java类
-    ③、调用java方法
+    ③、调用java方法根据
     ④、关闭jvm（不是真正意义上的关闭，卸载之前加载的类）
     """
     #获取执行文件得路径用于更改成exe执行方式后获取文件
@@ -31,7 +33,7 @@ if __name__ == '__main__':
 
     # 实例化java对象
     javaInstance = javaClass()
-
+    
     # # 实例化调用方法
     # javaInstance.sh()
     # # 使用类调用静态方法
@@ -43,3 +45,5 @@ if __name__ == '__main__':
     jpype.shutdownJVM()
 
     time.sleep(1)
+
+    pickle.load()

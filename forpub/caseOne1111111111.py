@@ -21,9 +21,10 @@ class Test(unittest.TestCase):
     # 启动函数，每个用例测试前，都会执行该函数
 
     def setUp(self):
-        self.browser = webdriver.Chrome()
-
-        self.browser.set_window_size(1920, 1080)
+        options = webdriver.ChromeOptions()
+        options.binary_location = "C:\\Users\\vzoom1\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe"
+        self.browser  = webdriver.Chrome(options=options)
+        self.browser.maximize_window()
 
         self.starttime = datetime.datetime.now()
         self.start=time.time()

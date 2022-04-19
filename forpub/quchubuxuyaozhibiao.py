@@ -7,16 +7,17 @@ from pyclass import conOracle
 
 #用于其他银行标准指标跟source库标准指标比对，拿出所需要的指标，去除不需要的指标
 if __name__ == '__main__':
-    isrulenum="c1"
+    isrulenum="c3"
     list1=[]
     list2=[]
     map1={}
     map2={}
-    ini = forFinal.getIni("logger.ini")
-    url = ini["callpro"]["callproConnectUsername"] + "/" + ini["callpro"]["callproConnectPassword"] + "@" + ini["callpro"]["callproConnectIp"] + "/" + ini["callpro"]["callproConnectTable"]
-    list=fe.readExcelSheet("F:\\asd\\1.xlsx")
+    #ini = forFinal.getIni("logger.ini")
+    url = "dev_vzbz/dev_vzbz@192.168.85.81:1521/emserver"
+    list=fe.readExcelSheet("C:\\Users\\zhangc\\Desktop\\abc\\newgozszbdouyou0414.xlsx")
     listone = []
     listtwo = []
+    print(len(list[2]))
     for num in range(len(list[2])):
         nsrsbh = list[2][num]['nsrsbh']
         rulenum = list[2][num]['rulenum']
@@ -31,8 +32,8 @@ if __name__ == '__main__':
             if rulenum == list[1][n]['rulenum']:
                 table = list[1][n]['table']
 
-        sql ="select t.* from (select * from "+table+") t where rownum=1"
-        re=conOracle.queryOracleReturnMap(url, sql)
+        sql ="select t.* from (select * from %s) t where rownum=1" %(table)
+        re=conOracle.queryOracleNone(url, sql)
         key=re.keys()
         i=int(innumber)
         listhave = []
@@ -47,29 +48,34 @@ if __name__ == '__main__':
         b=0
         c=0
         keyname=""
-        for k in key:
+        nothave=""
+        for ma in maphave.keys():
             biaoshi=0
             mapvalue=""
-            for ma in maphave.keys():
+            for k in key:
                 if k==ma:
                     biaoshi=1
                     mapvalue=ma+"="+maphave[ma]
             if biaoshi==1:
                 b += 1
                 mapsame["value"+str(b)]=mapvalue
-                keyname+=","+k
+                keyname+=","+ma
             else:
                 c+=1
-                mapnotsame["value" + str(c)]=k
+                mapnotsame["value" + str(c)]=ma
+                nothave += "," + ma
         listone.append(mapsame)
         listtwo.append(mapnotsame)
         print(keyname[1:])
+        print(123)
+        print(nothave[1:])
     map1["shee1"]=listone
     list1.append(map1)
     map2["shee1"] = listtwo
     list2.append(map2)
-    print(list1)
-    print(list2)
+    #print(list1)
+    #print(list2)
+    print("开始写入数据。。。")
     fe.getExcel(list1)
     time.sleep(2)
     fe.getExcel(list2)

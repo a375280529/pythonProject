@@ -4,7 +4,6 @@
 import requests
 import json
 import jsonpath
-from suds.client import Client
 
 def getJsonForGetInterface(url,param,headers):
     result={}
@@ -138,6 +137,12 @@ if __name__ == '__main__':
     # url="http://ws.webxml.com.cn/WebServices/MobileCodeWS.asmx?wsdl"
     # c=Client(url)
     # print(c.service.getMobileCodeInfo(""))
+
+    url8="https://www.baidu.com/"
+    dd=getJsonForPostDataInterface(url8,{},{})
+    print(dd["cookies"].get('BAIDUID'))
+    cc=requests.post(url8)
+    #print(cc.content.decode("utf-8"))
 
 
 

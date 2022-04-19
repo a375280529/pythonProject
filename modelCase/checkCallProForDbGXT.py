@@ -9,8 +9,9 @@ from forpub import forFinal
 class checkCallProNew(unittest.TestCase):
     #执行前调用
     def setUp(self):
-        #excel
-        self.listexcel=[]
+        # excel
+        self.listallexcept = []
+        self.listexcel = []
         self.listcheck=[]
         self.resultcheck="true"
         self.ini=forFinal.getIni("loggerDb.ini")
@@ -29,7 +30,7 @@ class checkCallProNew(unittest.TestCase):
         "存储过程场景测试"
         #循环获取第三个sheet的所有行数据
         for num in range(len(self.list[2])):
-            mapexcel = {}
+            mapexcel={}
             listhave=[]
             maphave={}
             findrulebiaoshi="0"
@@ -68,7 +69,6 @@ class checkCallProNew(unittest.TestCase):
             columnlist=column.split("&")
             wherelist=where.split(",")
             biaoshi="0"
-
             #调用存储过程
             conDb2.useDbPro(self.host,self.port,self.name,self.password,self.table, proname, inlist)
 
@@ -106,8 +106,8 @@ class checkCallProNew(unittest.TestCase):
                 i+=1
                 forlist=str(self.list[2][num]["value"+str(i)]).split("=")
                 exceptmap[forlist[0]]=forlist[1]
-            #excel
-            listzc=[]
+            # excel
+            listzc = []
             try:
                 #验证实际值与期望值是否一致
                 for name in exceptmap.keys():
@@ -115,43 +115,52 @@ class checkCallProNew(unittest.TestCase):
                     for check in checklist:
                         for checkname in check.keys():
                             if name == checkname:
-                                #excel
+                                # excel
                                 mapzc = {}
-                                mapzc["指标名"]=name
-                                mapzc["期望值"]=exceptmap[name]
-                                mapzc["实际值"]=str(check[name])
+                                mapzc["指标名"] = name
+                                mapzc["期望值"] = exceptmap[name]
+                                mapzc["实际值"] = str(check[name])
 
                                 if exceptmap[name]=="":
                                     exceptmap[name]="None"
                                 if exceptmap[name]=="notNone":
                                     if str(check[name]) == "None":
                                         self.resultcheck = "false"
+                                        self.listallexcept.append(name)
                                         listhave.append(name + ",期望值：" +exceptmap[name]+ ",实际值：" + str(check[name]))
+                                        mapzc["red"] = "true"
                                         biaoshi = "1"
+                                    else:
+                                        mapzc["red"] = "false"
                                     excelishave = "1"
                                 else:
-                                    if str(check[name]).strip() != exceptmap[name] and str(check[name]).strip()+".0" != exceptmap[name] and str(check[name]).strip() != exceptmap[name]+".0" and str(check[name]).strip() != exceptmap[name]+"000":
+                                    if str(check[name]).strip() != exceptmap[name] and str(check[name]).strip()+".0" != exceptmap[name] and str(check[name]).strip() != exceptmap[name]+".0" and str(check[name]).strip() != exceptmap[name]+"000" and "0"+str(check[name]).strip() != exceptmap[name]+".0000" and str(check[name]).strip() != exceptmap[name]+".0000":
                                         self.resultcheck = "false"
+                                        self.listallexcept.append(name)
                                         listhave.append(name+",期望值："+exceptmap[name]+",实际值："+str(check[name]))
+                                        mapzc["red"] = "true"
                                         biaoshi = "1"
+                                    else:
+                                        mapzc["red"] = "false"
                                     excelishave="1"
                     if excelishave=="0":
                         self.resultcheck = "false"
-                        listhave.append(name + ",该字段在excel中的column中未添加，导致该字段未做验证，请添加后重新执行")
+                        self.listallexcept.append(name)
+                        listhave.append(name.lower() + ",该字段在指标结果表不存在！")
                         biaoshi = "1"
-                    #excel
+                    # excel
                     listzc.append(mapzc)
 
                 if biaoshi == "1":
                     maphave["数据编号"+str(num+2)+"，纳税编号"+nsrsbh]=listhave
                     self.listcheck.append(maphave)
-                #excel
-                mapexcel["纳税编号"+nsrsbh]=listzc
+                # excel
+                mapexcel["纳税编号" + nsrsbh + "，数据编号" + str(num + 2)] = listzc
                 self.listexcel.append(mapexcel)
             except Exception as e:
                 print(e)
-        #excel
-        forExcel.getExcel(self.listexcel)
+        # excel
+        forExcel.getExcelColor(self.listexcel)
         #打印出用例执行结果信息
         if self.resultcheck=="true":
             print("<p style='color:green'>测试用例执行成功!</p>")
@@ -159,6 +168,8 @@ class checkCallProNew(unittest.TestCase):
             print("<p style='color:red'>测试用例执行失败!</p><p style='color:red'>失败数据详情：</p>")
         for val in self.listcheck:
             print("<p style='color:red'>",val,"</p>")
+        if self.listallexcept != []:
+            print("<p style='color:red'>所有异常指标集合：", set(self.listallexcept), "</p>")
         self.assertEqual("true",self.resultcheck)
 
 if __name__ == '__main__':

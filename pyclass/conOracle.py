@@ -3,6 +3,7 @@
 
 import cx_Oracle as cx
 import logging
+import traceback
 
 def conOracle(url):
     # 连接数据库
@@ -41,6 +42,28 @@ def queryOracleReturnMap(url, sql):
     fieldnames = [key[0] for key in cursor.description]
     if rows is None:
         pass
+    else:
+        for i in range(len(fieldnames)):
+            mapresult[fieldnames[i]] = rows[i]
+    # 关闭游标
+    cursor.close()
+    # 关闭数据库连接
+    conn.close()
+    return mapresult
+
+#查询出一条数据返回map（无数据时返回键和none）
+def queryOracleNone(url, sql):
+    conn = conOracle(url)
+    # 使用cursor()方法获取操作游标
+    cursor = conn.cursor()
+    # 使用execute方法执行SQL语句
+    result = cursor.execute(sql)
+    rows = cursor.fetchone()
+    mapresult = {}
+    fieldnames = [key[0] for key in cursor.description]
+    if rows is None:
+        for i in range(len(fieldnames)):
+            mapresult[fieldnames[i]] = "None"
     else:
         for i in range(len(fieldnames)):
             mapresult[fieldnames[i]] = rows[i]
@@ -90,10 +113,34 @@ def updateOracle(url, sql):
     except:
         conn.rollback()
         logging.error("异常sql！")
-    # 关闭游标
-    cursor.close()
-    # 关闭数据库连接
-    conn.close()
+    finally:
+        # 关闭游标
+        cursor.close()
+        # 关闭数据库连接
+        conn.close()
+
+def updateOracleReturn(url, sql):
+    # 连接数据库
+    conn = conOracle(url)
+    # 使用cursor()方法获取操作游标
+    cursor = conn.cursor()
+    try:
+        # 使用execute方法执行SQL语句
+        cursor.execute(sql)
+        # 提交数据
+        conn.commit()
+        logging.info("插入或更新成功！")
+        return "true"
+    except:
+        conn.rollback()
+        logging.error("异常sql！")
+        return "false"
+    finally:
+        # 关闭游标
+        cursor.close()
+        # 关闭数据库连接
+        conn.close()
+
 
 '''
 @:param 数据库连接url,存储过程名proname,
@@ -136,17 +183,36 @@ def usePro(url,proname,inlist,outmap):
         cursor.close()
         con.close()
 
+#执行sql
+def usesql(url, sql):
+    biaoshi=0
+    conn = conOracle(url)
+    # 使用cursor()方法获取操作游标
+    cursor = conn.cursor()
+    # 使用execute方法执行SQL语句
+    try:
+        cursor.execute(sql)
+    except Exception as e:
+        biaoshi=1
+        print("%s:执行异常"%(sql))
+        print(e)
+    finally:
+        cursor.close()
+        conn.close()
+    return biaoshi
+
 if __name__ == '__main__':
     pass
     # sql="select t.sw_bg_bsry_01m,t.* from T_JC_ZB t where t.nsrsbh='440100593700191'"
     # result=queryOracleReturnMap("vz_bz4/vz_bz4@192.168.85.81:1521/emserver",sql)
     # print(result)
-    sql="select t.nsrsbh from (select * from pr_head_info order by update_time asc) t where rownum<=10"
-    result = queryOracleAllReturnList("intergration_hbyh/intergration_hbyh@192.168.85.61:1521/emserver", sql)
-    print(result)
-    aa="nsrsbh in ("
-    for idf in result:
-        print(idf["NSRSBH"])
-        aa+="'"+idf["NSRSBH"]+"',"
-    aa=aa[:-1]+")"
-    print(aa)
+    # sql="select t.nsrsbh from (select * from pr_head_info order by update_time asc) t where rownum<=10"
+    # result = queryOracleAllReturnList("zxc/zxc@192.168.85.81:1521/emserver", sql)
+    # print(result)
+    # aa="nsrsbh in ("
+    # for idf in result:
+    #     print(idf["NSRSBH"])
+    #     aa+="'"+idf["NSRSBH"]+"',"
+    # aa=aa[:-1]+")"
+    # print(aa)
+

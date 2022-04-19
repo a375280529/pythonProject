@@ -100,5 +100,6 @@ class Code():
             self.main()
 
     def main(self):
-        self.get_captcha()
-        self.move()
+        self.slider()
+        #self.get_captcha()
+        #self.move()

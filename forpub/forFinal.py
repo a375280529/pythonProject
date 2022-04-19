@@ -6,6 +6,7 @@ import random
 import pandas as pd
 from xml.dom.minidom import parse
 import base64
+import time
 
 # 获取配置文件相对路径
 def getIniPath():
@@ -116,7 +117,7 @@ def decrypt_base64(str_cont):
     result = base64.b64decode(str_cont).decode("utf-8")
     return result
 
-#进度条
+#进度条，循环里面需要加上time.sleep(0.001)，percent是未转成百分比的小数,循环到最后的时候赋值为1（for i in range(10000);time.sleep(0.001);a=(i+1)/10000;progress(a)）
 def progress(percent):
     if percent > 1:
         percent = 1

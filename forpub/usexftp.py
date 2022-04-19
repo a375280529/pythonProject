@@ -12,7 +12,7 @@ if __name__ == '__main__':
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     # 连接远程机器 地址端口用户名密码
-    ssh.connect("192.168.81.71", 22, "root", "centos")
+    ssh.connect("192.168.85.43", 10014, "root", "zrsf2012")
 
     #前几天就传几
     lastdaynum=12
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     # 执行命令
     #stdin, stdout, stderr = ssh.exec_command("cd feedbacklist; mkdir ceshi ;cd ceshi;touch aa.txt;mv aa.txt bb.txt;ls")
 
-    stdin, stdout, stderr = ssh.exec_command("cd feedbacklist; mkdir ceshi ;cd ceshi;touch aa.txt;mv aa.txt aa"+nowday+".txt;ls")
+    stdin, stdout, stderr = ssh.exec_command("cd ../;cd opt; mkdir ceshi ;cd ceshi;touch aa.txt;mv aa.txt aa"+nowday+".txt;ls")
 
     # 获取命令结果
     result = stdout.read()
@@ -35,13 +35,13 @@ if __name__ == '__main__':
     sftp = paramiko.SFTPClient.from_transport(tran)
     # 设置上传的本地和远程文件路径
     localpath = "aa.txt"
-    removepath = os.path.join('/root/feedbacklist/ceshi/', 'cc.txt')
+    removepath = os.path.join('/opt/ceshi/', 'cc.txt')
     # 执行上传动作
     sftp.put(localpath, removepath)
 
-    localpath = "templates/templates.txt"
-    removepath=os.path.join('/root/feedbacklist/ceshi/', 'aa20210930.txt')
-    sftp.get(removepath,localpath)
+    #localpath = "templates/templates.txt"
+    #removepath=os.path.join('/opt/ceshi/', 'aa20210930.txt')
+    #sftp.get(removepath,localpath)
 
     # 关闭连接
     sftp.close()

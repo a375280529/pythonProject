@@ -3,6 +3,7 @@
 import unittest
 import time
 from BeautifulReport import BeautifulReport
+from forpub import ForReport
 import configparser
 import sys
 import os
@@ -15,7 +16,8 @@ sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..")))
 exepath = os.path.realpath(sys.executable)
 endpath = exepath.split(exepath.split("\\")[-1])[0]
 patha=os.path.join(os.path.abspath('.'), endpath + "iniFile\\")
-path = patha + "loggerLiangHua.ini"
+path = patha + "logger.ini"
+path=".\\iniFile\\"+"loggerYuanMa.ini"
 config = configparser.ConfigParser()
 config.read(path,encoding="utf-8-sig")
 
@@ -28,6 +30,7 @@ nowday=time.strftime("%Y%m%d", time.localtime())
 exepath=os.path.realpath(sys.executable)
 endpath=exepath.split(exepath.split("\\")[-1])[0]
 log_path = os.path.join(os.path.abspath('.'), endpath+nowday)
+log_path = config["path"]["caseportpath"]+nowday
 bef = os.path.join(os.path.abspath('.'), endpath+"BeautifulReport/template/bueatifulcss")
 
 # 测试报告名称
@@ -46,10 +49,15 @@ pattern = config["path"]["pattern"]
 if __name__ == '__main__':
     print("执行中。。。")
     test_suite = unittest.defaultTestLoader.discover(test_case_path, pattern=pattern)
-    result = BeautifulReport(test_suite)
+    result = ForReport.ForReport(test_suite)
+    print(filename)
+    print(description)
+    print(log_path)
     result.report(filename=filename, description=description, log_path=log_path)
+    print(log_path)
     # 用于无网络测试报告无网络的css和js
-    if not os.path.exists(log_path + "/bueatifulcss"):
-        shutil.copytree(bef, log_path + "/bueatifulcss")
+    # if not os.path.exists(log_path + "/bueatifulcss"):
+    #     shutil.copytree(bef, log_path + "/bueatifulcss")
     print("执行完成。。。")
     time.sleep(1)
+    shutil.rmtree(log_path)

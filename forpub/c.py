@@ -5,6 +5,7 @@ import time
 
 class Check():
     def __init__(self, date, start, end, purpose):
+        #https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=2021-12-10&leftTicketDTO.from_station=BJP&leftTicketDTO.to_station=SHH&purpose_codes=ADULT
         self.base_url = 'https://kyfw.12306.cn/otn/leftTicket/query?'
         self.url = 'https://kyfw.12306.cn/otn/resources/js/framework/station_name.js?station_version=1.9018'
         self.headers = {
@@ -57,12 +58,13 @@ class Check():
         while count == 0:
             ii+=1
             if ii%3==0:
-                time.sleep(1)
+                time.sleep(2)
             print('余票查询中...  %d次' % check_count)
             response = requests.get(url, headers=self.headers)
             # print(response.text)
             try:
                 json = response.json()
+                print(json)
             except ValueError:
                 print('余票查询链接有误，请仔细检查！')
                 return
@@ -78,9 +80,15 @@ class Check():
                     '一等座': s[28],
                     '二等座': s[27]
                 }
+                print(info)
                 try:
+                    # 余票的结果有3种：有、一个具体的数字(如：18、6等)、无，判断如果余票是有或者一个具体的数字就直接输出对应的车次信息，然后返回（固定时间段的车次）
+                    # if (info['二等座'] == '有' or int(info['二等座'])) and "07:51" in info["start_end"]:
+                    #     print('预定车次信息如下：')
+                    #     print('[%d]' % count, info)
+                    #     return count
                     # 余票的结果有3种：有、一个具体的数字(如：18、6等)、无，判断如果余票是有或者一个具体的数字就直接输出对应的车次信息，然后返回
-                    if (info['二等座'] == '有' or int(info['二等座'])) and "07:51" in info["start_end"]:
+                    if (info['二等座'] == '有' or int(info['二等座'])):
                         print('预定车次信息如下：')
                         print('[%d]' % count, info)
                         return count

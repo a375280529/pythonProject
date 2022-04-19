@@ -4,6 +4,7 @@ import time
 import unittest
 from pyclass import conOracle,forExcel
 from forpub import forFinal
+from forpub import ForReport
 import logging
 
 #通用模型规则场景测试
@@ -103,7 +104,16 @@ class checkCallProForRules(unittest.TestCase):
                 upsql="update "+utable+" set "
                 for ucolumn in range(len(ucolumnlist)):
                     yuanshisql+="t."+ucolumnlist[ucolumn].strip("\n")+","
-                    upsql+=ucolumnlist[ucolumn].strip("\n")+"="+uvaluelist[ucolumn].strip("\n")+","
+                    try:
+                        if uvaluelist[ucolumn].strip("\n")=="" or uvaluelist[ucolumn].strip("\n")==None or uvaluelist[ucolumn].strip("\n")=="None":
+                            upsql+=ucolumnlist[ucolumn].strip("\n")+"=null,"
+                        else:
+                            upsql+=ucolumnlist[ucolumn].strip("\n")+"="+uvaluelist[ucolumn].strip("\n")+","
+                    except:
+                        if str(uvaluelist[ucolumn]).strip("\n") == "" or str(uvaluelist[ucolumn]).strip("\n")==None or str(uvaluelist[ucolumn]).strip("\n")=="None":
+                            upsql+=ucolumnlist[ucolumn].strip("\n")+"=null,"
+                        else:
+                            upsql+=ucolumnlist[ucolumn].strip("\n")+"="+str(uvaluelist[ucolumn]).strip("\n")+","
                 upsql=upsql[:-1]+" "+allwhere
                 yuanshisql=yuanshisql[:-1]+" from (select * from "+utable+" "+allwhere+"order by lrsj desc) t where rownum=1"
                 yuanshimap=conOracle.queryOracleReturnMap(self.url,yuanshisql)
@@ -123,7 +133,6 @@ class checkCallProForRules(unittest.TestCase):
                 allysql+=utable+" set "+yuansql[:-1]+" "+allwhere
                 huanyuansqllist.append(allysql)
                 conOracle.updateOracle(self.url,upsql)
-                time.sleep(1)
 
             #调用存储过程
             result = conOracle.usePro(self.url, proname, inlist, outmap)
@@ -141,7 +150,10 @@ class checkCallProForRules(unittest.TestCase):
                 if fs.isdigit():
                     allcheckwhere += "'" + self.list[1][num]["value" + fs] + "'"
                 else:
-                    allcheckwhere += fs
+                    if '&' in fs:
+                        allcheckwhere += "'"+fs.split("&")[1]+"'"
+                    else:
+                        allcheckwhere += fs
 
             #获取校验信息
             checksql="select t."+checkcolumn+" from (select * from "+checktable+" "+allcheckwhere+") t where rownum=1"
@@ -174,6 +186,8 @@ class checkCallProForRules(unittest.TestCase):
             print("<p style='color:red'>测试用例执行失败!</p><p style='color:red'>失败数据详情：</p>")
         for val in self.listcheck:
             print("<p style='color:red'>",val,"</p>")
+
+
         self.assertEqual("true",self.resultcheck)
 
 if __name__ == '__main__':

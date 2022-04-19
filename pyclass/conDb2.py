@@ -90,10 +90,11 @@ def updateDb(host,port,user,password,database, sql):
     except:
         conn.rollback()
         logging.error("异常sql！")
-    # 关闭游标
-    cursor.close()
-    # 关闭数据库连接
-    conn.close()
+    finally:
+        # 关闭游标
+        cursor.close()
+        # 关闭数据库连接
+        conn.close()
 
 '''
 @:param 数据库连接,存储过程名proname,
@@ -121,9 +122,14 @@ def useDbPro(host,port,user,password,database,proname,inlist):
         return resout
     except Exception as e:
         return e
+    finally:
+        conn.close()
 
 if __name__ == '__main__':
-    pass
+    #pass
     # inlist=["yyds","666","?"]
     # ff=useDbPro('192.168.85.231','50000','db2inst1','db2inst1','test',"DEMO1201",inlist)
     # print(ff)
+    sql="select * from zx_nsrjcxx"
+    df=queryDbReturnMap('192.168.85.231','50000','db2inst1','db2inst1','test', sql)
+    print(df)

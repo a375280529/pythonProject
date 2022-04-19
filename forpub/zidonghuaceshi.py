@@ -4,7 +4,7 @@
 from pyclass import conOracle,forExcel
 
 if __name__ == '__main__':
-    # aa="sw_cwbb_zsbzsbl,sw_cwbb_xjldfzl,sw_cwbb_ldbl,sw_cwbb_sdbl,sw_cwbb_zcfzl,sw_cwbb_zqfzl,sw_cwbb_cqbl,sw_cwbb_zxjzzwl,sw_cwbb_yhlxbs,sw_cwbb_cqfzyyzjbl,sw_cwbb_zzzjzwb,sw_cwbb_yxzczwl,sw_cwbb_yhfzzcb,sw_cwbb_zhzwfgb,sw_cwbb_zhzwzbjzb,sw_cwbb_zewbebitda,sw_cwbb_chldfzb,sw_cwbb_xjbl,sw_cwbb_jksrb,sw_cwbb_zqjksrb,sw_cwbb_dqjksrb,sw_cwbb_qtzfksrb,sw_cwbb_yfgzsrb,sw_cwbb_yfsjsrb,sw_cwbb_cqzbfzl,sw_cwbb_lxbzbs,sw_cwbb_ebitbdqjk,sw_cwbb_dqjkbebit,sw_cwbb_zzlrzjkb,sw_cwbb_srlxbzbs,sw_cwbb_xsqlrfzb,sw_cwbb_sqlrzjkb,sw_cwbb_yylrzjkb,sw_cwbb_yylrfzb,sw_cwbb_yylrjjkb,sw_cwbb_zzlrzjkb_2,sw_cwbb_kczszkhdfzbl,sw_cwbb_xjb,sw_cwbb_qzfzbl,sw_cwbb_ldzczb,sw_cwbb_ldfzzb,sw_cwbb_gdzcqzbl,sw_cwbb_ldfzl,sw_cwbb_zzzbzb,sw_cwbb_zhfzjg,sw_cwbb_szzqzbl,sw_cwbb_fxzwjgb,sw_cwbb_zjkqyb,sw_cwbb_jjkqyb,sw_cwbb_fldfzqzb,sw_cwbb_zqfzzcb,sw_cwbb_zzczzl,sw_cwbb_zszkzzl,sw_cwbb_ldzczzl,sw_cwbb_szzqzzzl,sw_cwbb_gdzczzl,sw_cwbb_chzzl_cb,sw_cwbb_yfzkzzl,sw_cwbb_yysrzzjkb,sw_cwbb_zzczzts,sw_cwbb_yszkzzts,sw_cwbb_ldzczzts,sw_cwbb_szzqzzzts,sw_cwbb_gdzczzts,sw_cwbb_chzzts_cb,sw_cwbb_zzczzl_1,sw_cwbb_zszkzzl_2,sw_cwbb_ldzczzl_1,sw_cwbb_szzqzzzl_1,sw_cwbb_gdzczzl_1,sw_cwbb_dqjkxjbl,sw_cwbb_sdzczb,sw_cwbb_yyzbsrb,sw_cwbb_srfyb,sw_cwbb_zclrl,sw_cwbb_zzcszl,sw_cwbb_zzcjll,sw_cwbb_zzcbcl,sw_cwbb_zcjll,sw_cwbb_zcjll_1,sw_cwbb_sqxsjll,sw_cwbb_sqzzcjll,sw_cwbb_zzmll,sw_cwbb_xsjll,sw_cwbb_xsfzbl,sw_cwbb_zzwszbl,sw_cwbb_tzszbl,sw_cwbb_sxfzbl,sw_cwbb_qtzwlrbl,sw_cwbb_xsqlrl,sw_cwbb_glfzbl,sw_cwbb_zzsrchb,sw_cwbb_zskzzzcbbl,sw_cwbb_chzzzcbbl,sw_cwbb_zfzkzzzcbbl,sw_cwbb_bwfzbl,sw_cwbb_sqlrl,sw_cwbb_jzcszlv,sw_cwbb_zczzlrlv,sw_cwbb_jzcszl_1,sw_cwbb_zzczzlv,sw_cwbb_zzsrzzl,sw_cwbb_zszktbzzl,sw_cwbb_yuszkzzl,sw_cwbb_zfkzzlv,sw_cwbb_chtbzzlv,sw_cwbb_zzlrzzlv,sw_cwbb_szzqzzzlv,sw_cwbb_lrzezzlv,sw_cwbb_jzcszlzzlv,sw_cwbb_qtywsrzzl,sw_cwbb_zzwsrzzlv,sw_cwbb_jlrzzlv,sw_cwbb_gdzczzlv,sw_cwbb_xjzhq,sw_cwbb_glfyzzc,sw_cwbb_glfyfzhj,sw_cwbb_sszbsr,sw_cwbb_wfplrzchj,sw_cwbb_jlrzchj,sw_cwbb_yszkyysr,sw_cwbb_ljzjzzc,sw_cwbb_ldzcyysr,sw_cwbb_sdszchj,sw_cwbb_ljzjzjzchj,SW_CWBB_LRSRBL_A,sw_cwbb_xsjll_2,sw_cwbb_yysryszkppl_a,sw_cwbb_yszkzzl_a,sw_cwbb_gdzcbcl_a,sw_cwbb_gdzczzl_a,sw_cwbb_mllzzl_a,sw_cwbb_wfplrbhl_a,sw_cwbb_ldfzyysr_qj,sw_cwbb_ldbl_qj,sw_cwbb_glfyzchj_qj,sw_cwbb_jlrsyzqy_qj,sw_cwbb_ljzjsyzqy_qj,sw_cwbb_mllhy,sw_cwbb_syzqy_last,sw_cwbb_glfzbl_qj,sw_cwbb_jlrl_01s,SW_CWBB_CHZZL_SR,SW_CWBB_YFZKZZTS,SW_CWBB_ZQZCSHL,SW_CWBB_CBSFQS,SW_CWBB_JLRL_02J,SW_CWBB_JLRL_01J,SW_CWBB_HBZJFGZGXC_CZ,SW_CWBB_YYZBZB_Y,SW_CWBB_LRB_SFQS,SW_CWBB_ZCFZB_SFQS,SW_CWBB_ZCFZB_SSQZ_MAX,SW_CWBB_ZCFZB_SSQQ_MIN,SW_CWBB_LRB_SSQZ_MAX,SW_CWBB_LRB_SSQQ_MIN,SW_CWBB_QTYSKBSSZBZBGJ,SW_CWBB_YSZKBXSSR,SW_CWBB_YSZKZZBXSSRZZ,SW_CWBB_SFYCB,SW_CWBB_YYLRZCHJ_Y,SW_CWBB_DQJKZCHJ_Y,SW_CWBB_JYYZB_ZZL_Y,SW_CWBB_YXZCFZL_QJ,SW_CWBB_HYYYSRCHB,SW_CWBB_XSQLRL_M,SW_CWBB_ZCFZL_M,SW_CWBB_MLL,SW_CWBB_QYZZL,SW_CWBB_SYZQY_ZZL_Y"
+    # aa="SW_JCXX_CLNX,SW_JCXX_DJZCLXDM,SW_JCXX_HY,SW_JCXX_NSRLXDM,SW_JCXX_NSRXYPJ,SW_JCXX_NSRZTDM,SW_JCXX_SCJYQXZ,SW_JCXX_XZQH,SW_JCXX_ZCZB,SW_LXR_CWFZRXB,SW_LXR_FRNL,SW_LXR_CWFZRNL,SW_LXR_FRXB,SW_LXR_FRZJHM,SW_LXR_CWFZRZJHM,SW_LXR_FRXM,SW_LXR_CWFZRXM,SW_TZF_FRTZBL,SW_TZF_GDGS,SW_TZF_GDGS_FR,SW_TZF_GDGS_ZRR,SW_TZF_GDTZBL_FIRST,SW_TZF_GDTZBL_FIRST_SFFR,SW_BG_BSRY_01M,SW_BG_BSRY_03M,SW_BG_BSRY_06M,SW_BG_BSRY_12M,SW_BG_BSRY_24M,SW_BG_CWFZR_01M,SW_BG_CWFZR_03M,SW_BG_CWFZR_06M,SW_BG_CWFZR_12M,SW_BG_CWFZR_24M,SW_BG_FR_01M,SW_BG_FR_03M,SW_BG_FR_06M,SW_BG_FR_12M,SW_BG_FR_24M,SW_BG_HY_01M,SW_BG_HY_03M,SW_BG_HY_06M,SW_BG_HY_12M,SW_BG_HY_24M,SW_BG_JYDZ_01M,SW_BG_JYDZ_03M,SW_BG_JYDZ_06M,SW_BG_JYDZ_12M,SW_BG_JYDZ_24M,SW_BG_JYFW_01M,SW_BG_JYFW_03M,SW_BG_JYFW_06M,SW_BG_JYFW_12M,SW_BG_JYFW_24M,SW_BG_TZF_01M,SW_BG_TZF_03M,SW_BG_TZF_06M,SW_BG_TZF_12M,SW_BG_TZF_24M,SW_BG_ZCZB_01M,SW_BG_ZCZB_03M,SW_BG_ZCZB_06M,SW_BG_ZCZB_12M,SW_BG_ZCZB_24M,SW_BG_ZCZBJZ_01M,SW_BG_ZCZBJZ_03M,SW_BG_ZCZBJZ_06M,SW_BG_ZCZBJZ_12M,SW_BG_ZCZBJZ_24M,SW_WFWZ_01M,SW_WFWZ_03M,SW_WFWZ_06M,SW_WFWZ_12M,SW_WFWZ_24M,SW_WFWZ_YB_01M,SW_WFWZ_YB_03M,SW_WFWZ_YB_06M,SW_WFWZ_YB_12M,SW_WFWZ_YB_24M,SW_WFWZ_YZ_01M,SW_WFWZ_YZ_03M,SW_WFWZ_YZ_06M,SW_WFWZ_YZ_12M,SW_WFWZ_YZ_24M,SW_JCAJ_01M,SW_JCAJ_03M,SW_JCAJ_06M,SW_JCAJ_12M,SW_JCAJ_24M,ID,SW_JCXX_NSRMC_FGSBS,SW_JCXX_HYJRBS,SW_JCXX_DQJRBS,SW_JCXX_NSRMC,SW_JCXX_SFZZY_A,SW_JCXX_DJZCLXMC,SW_TZF_FRTZBL_HMXM,SW_BG_FR_02M,SW_BG_FR_09M,SW_BG_FR_15M,SW_BG_FR_18M,SW_BG_FR_21M,SW_BG_HY_02M,SW_BG_HY_09M,SW_BG_HY_15M,SW_BG_HY_18M,SW_BG_HY_21M,SW_WFWZ_02M,SW_WFWZ_09M,SW_WFWZ_15M,SW_WFWZ_18M,SW_WFWZ_21M,SW_WFWZ_YZ_02M,SW_WFWZ_YZ_09M,SW_WFWZ_YZ_15M,SW_WFWZ_YZ_18M,SW_WFWZ_YZ_21M,SW_JCXX_NSRJCXX_SFQS,SW_LXR_LXRXX_SFQS,SW_TZF_TZFXX_SFQS,SW_BG_FRBGJJTS,SW_TZF_TZFJJXZLX,SW_JCXX_SFGTGSH,SW_TZF_GQFSD,SW_WFWZ_JJYS,SW_WFWZ_YZ_DH,SW_BG_FR_DH,SW_BG_HY_DH,SW_BG_BSRY_DH,SW_BG_FRYDDH_12M"
     #
     # print(len(aa.split(",")))
 
@@ -13,7 +13,7 @@ if __name__ == '__main__':
     sql2=""
 
     # re=conOracle.queryOracleAllReturnList("test_source/test_source@192.168.85.81:1521/emserver", sql1)
-    lists=[{"NSRSBH":"913307005669107196","LRSJ":"2020-04-13"},{"NSRSBH":"91430722MA4M105325","LRSJ":"2020-04-13"},{"NSRSBH":"913211813462100351","LRSJ":"2020-04-13"},{"NSRSBH":"913205945618109539","LRSJ":"2020-04-13"},{"NSRSBH":"915301276787105486","LRSJ":"2020-04-13"},{"NSRSBH":"911201037128101150","LRSJ":"2020-04-13"}]
+    lists=[{"NSRSBH":"913307005669107196","LRSJ":"2020-04-13"},{"NSRSBH":"91430722MA4M105325","LRSJ":"2020-04-13"},{"NSRSBH":"913211813462100351","LRSJ":"2020-04-13"},{"NSRSBH":"913205945618109539","LRSJ":"2020-04-13"},{"NSRSBH":"915301276787105486","LRSJ":"2020-04-13"},{"NSRSBH":"911201037128101150","LRSJ":"2020-04-13"},{"NSRSBH":"91410221MA45100001","LRSJ":"2020-04-13"},{"NSRSBH":"914107023956100002","LRSJ":"2020-04-13"},{"NSRSBH":"914203040554100003","LRSJ":"2020-04-13"},{"NSRSBH":"914208023317100004","LRSJ":"2020-04-13"},{"NSRSBH":"914201125848100005","LRSJ":"2020-04-13"},{"NSRSBH":"914201036823100006","LRSJ":"2020-04-13"},{"NSRSBH":"91420800MA48100007","LRSJ":"2020-04-13"},{"NSRSBH":"91430281MA4L100008","LRSJ":"2020-04-13"},{"NSRSBH":"914302005910100009","LRSJ":"2020-04-13"},{"NSRSBH":"914301023293100010","LRSJ":"2020-04-13"},{"NSRSBH":"91430104MA4M100011","LRSJ":"2020-04-13"},{"NSRSBH":"914406067398100012","LRSJ":"2020-04-13"},{"NSRSBH":"914419003151100013","LRSJ":"2020-04-13"},{"NSRSBH":"914403005598100014","LRSJ":"2020-04-13"},{"NSRSBH":"91442000MA4W100015","LRSJ":"2020-04-13"},{"NSRSBH":"913201150626100016","LRSJ":"2020-04-13"},{"NSRSBH":"913204125855100017","LRSJ":"2020-04-13"},{"NSRSBH":"913206917596100018","LRSJ":"2020-04-13"},{"NSRSBH":"913202045837100019","LRSJ":"2020-04-13"},{"NSRSBH":"91320113MA1W100020","LRSJ":"2020-04-13"},{"NSRSBH":"913301220888100021","LRSJ":"2020-04-13"},{"NSRSBH":"913307815985100022","LRSJ":"2020-04-13"},{"NSRSBH":"913306047434100023","LRSJ":"2020-04-13"},{"NSRSBH":"913303826725100024","LRSJ":"2020-04-13"},{"NSRSBH":"913410046104100025","LRSJ":"2020-04-13"},{"NSRSBH":"91340103MA2N100026","LRSJ":"2020-04-13"},{"NSRSBH":"913506280953100027","LRSJ":"2020-04-13"},{"NSRSBH":"913607027969100028","LRSJ":"2020-04-13"},{"NSRSBH":"913611233225100029","LRSJ":"2020-04-13"},{"NSRSBH":"91360402MA38100030","LRSJ":"2020-04-13"},{"NSRSBH":"91411503MA44100031","LRSJ":"2020-04-13"},{"NSRSBH":"914107817906100032","LRSJ":"2020-04-13"},{"NSRSBH":"914114036728100033","LRSJ":"2020-04-13"},{"NSRSBH":"914109000559100034","LRSJ":"2020-04-13"},{"NSRSBH":"91410225MA44100035","LRSJ":"2020-04-13"},{"NSRSBH":"91341825MA2M100036","LRSJ":"2020-04-13"},{"NSRSBH":"92340802MA2P100037","LRSJ":"2020-04-13"},{"NSRSBH":"913401005663100038","LRSJ":"2020-04-13"},{"NSRSBH":"91341222MA2M100039","LRSJ":"2020-04-13"},{"NSRSBH":"913506813157100040","LRSJ":"2020-04-13"},{"NSRSBH":"913501001543100041","LRSJ":"2020-04-13"},{"NSRSBH":"913506240561100042","LRSJ":"2020-04-13"},{"NSRSBH":"913501007983100043","LRSJ":"2020-04-13"},{"NSRSBH":"913502050511100044","LRSJ":"2020-04-13"},{"NSRSBH":"911408296942100045","LRSJ":"2020-04-13"},{"NSRSBH":"914403003564100046","LRSJ":"2020-04-13"},{"NSRSBH":"914403001922100047","LRSJ":"2020-04-13"},{"NSRSBH":"91450100MA5L100048","LRSJ":"2020-04-13"},{"NSRSBH":"91469006MA5T100049","LRSJ":"2020-04-13"},{"NSRSBH":"91460200MA5T100050","LRSJ":"2020-04-13"}]
     #lists = [{"NSRSBH": "120109066870104324"},
              #{"NSRSBH": "120113L83297104844"},
              #{"NSRSBH": "121000004660103721"},
@@ -41,10 +41,10 @@ if __name__ == '__main__':
         # outmap["xypj_1"] = "String"
 
         # 调用存储过程
-        result = conOracle.usePro("bzzb_test/bzzb_test@192.168.85.81:1521/emserver", "p_bzzb_cwbb", inlist, outmap)
+        result = conOracle.usePro("test_source/test_source@192.168.85.81:1521/emserver", "p_bzzb_cwbb", inlist, outmap)
         #result = conOracle.usePro("tjbank_test/tjbank_test@192.168.85.81:1521/emserver", "p_mx_tjyh_hbh", inlist, outmap)
         print(result)
-        
+
         #验证存储过程是否调用成功
         if result[3] == 0.0:
             pass
@@ -52,21 +52,27 @@ if __name__ == '__main__':
             print("异常")
 
 
-        sql2 = "select t.* from (select nsrsbh,lrsj,SW_CWBB_SYZQY_1 from T_ZCFZB_XM where nsrsbh='%s' order by lrsj desc) t where rownum=1" % (lists[dd]["NSRSBH"])
+        sql2 = "select t.* from (select * from t_cwbb_zb where nsrsbh='%s' order by lrsj desc) t where rownum=1" % (lists[dd]["NSRSBH"])
         #sql2 = "select t.* from (select ysxed,code,reason,bz,djxh,nsrmc,frxm,frsfzjhm,sfzjlx,nsrsbh_wj,zchj_1,qbxse_6_avg,kyrq_1,hyml_1,jkze_1,zcfzl_1,qbxse_12_byxs,fr_chigu,fr_csrq,qbxse_zzl,xypf_1 from t_gsyh_result where NSRSBH='%s' and lrsj is not null order by lrsj desc) t where rownum=1" % (lists[dd]["NSRSBH"])
 
         print(sql2)
-        all=conOracle.queryOracleAllReturnList("bzzb_test/bzzb_test@192.168.85.81:1521/emserver", sql2)
+        all=conOracle.queryOracleAllReturnList("test_source/test_source@192.168.85.81:1521/emserver", sql2)
         #all = conOracle.queryOracleAllReturnList("tjbank_test/tjbank_test@192.168.85.81:1521/emserver", sql2)
         for le in all:
             map1={}
+            keyall=""
             #map1["LRSJ"]=str(lists[dd]["LRSJ"])
             for d in le.keys():
                 if d=="NSRSBH":
                     map1[d]=str(le[d])
+                    keyall += d + ","
+                elif d=="ID":
+                    pass
                 else:
                     map1[d] = d + "=" + str(le[d])
+                    keyall += d + ","
             list1.append(map1)
+            print(keyall[:-1])
         print(i)
     map={}
     map["sheet1"]=list1
