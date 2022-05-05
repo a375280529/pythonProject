@@ -28,6 +28,8 @@ if __name__ == '__main__':
 
     # 开启jvm
     jpype.startJVM(jvmPath, '-ea', '-Djava.class.path=%s' % (jarpath))
+    #开启jvm用于多个jar包路径
+    #jpype.startJVM('-ea', classpath=[jarpath])
     # 加载java类（参数名是java的长类名）
     javaClass = jpype.JClass('CryptionUtil')
 

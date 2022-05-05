@@ -25,7 +25,6 @@ if __name__ == '__main__':
 
     # 获取jvm.dll的文件路径
     jvmPath = jpype.getDefaultJVMPath()
-
     # 开启jvm
     jpype.startJVM(jvmPath, '-ea', '-Djava.class.path=%s' % (jarpath))
     # 加载java类（参数名是java的长类名）
