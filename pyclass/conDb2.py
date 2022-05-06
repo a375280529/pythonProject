@@ -101,7 +101,7 @@ def updateDb(host,port,user,password,database, sql):
 '''
 #调用存储过程,传参数据库连接,存储过程名
 def useDbPro(host,port,user,password,database,proname,inlist):
-    cont = "DATABASE=" + database + ";HOSTNAME=" + host + ";PORT=" + port + ";PROTOCOL=TCPIP;UID=" + user + ";PWD=" + password+";"
+    cont = "DATABASE=" + database + ";HOSTNAME=" + host + ";PORT=" + port + ";PROTOCOL=TCPIP;UID=" + user + ";PWD=" + password+";AUTHENTICATION=SERVER;"
     conn = ibm_db.connect(cont, "","")
     biaoshi=0
     try:
