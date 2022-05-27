@@ -166,7 +166,7 @@ def quzero(val):
         return val
 
 #用于四舍五入 value:值(float类型) weishu(保留几位)
-def newround(value=0,weishu=0):
+def newround(value,weishu):
     biaoshi=0
     if str(value)[0]=="-":
         value=-value
@@ -206,3 +206,13 @@ def newround(value=0,weishu=0):
     if biaoshi==1:
         result=-result
     return result
+
+#更改ini中对应的key的值，ini为ini的文件名称，title为最外面名称,key为键，value为值
+def writeIni(ini,title,key,value):
+    path = getIniPath() + ini
+    fixConfig = configparser.ConfigParser()
+    fixConfig.read(path, encoding="utf-8-sig")
+    fixConfig.set(title, key, value)
+    with open(path, "w+", encoding="utf-8-sig") as f:
+        fixConfig.write(f)
+        f.close()
