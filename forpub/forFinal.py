@@ -164,3 +164,45 @@ def quzero(val):
         return value
     except:
         return val
+
+#用于四舍五入 value:值(float类型) weishu(保留几位)
+def newround(value=0,weishu=0):
+    biaoshi=0
+    if str(value)[0]=="-":
+        value=-value
+        biaoshi=1
+    strvalue = str(value)
+    va=strvalue.split(".")
+    if len(va)==1:
+        if biaoshi==1:
+            return float("-"+va[0])
+        else:
+            return float(va[0])
+    if weishu>=len(va[1]):
+        if biaoshi==1:
+            return float("-"+strvalue)
+        else:
+            return float(strvalue)
+    if len(va) != 1:
+        if weishu==0:
+            if int(va[1][weishu])>=5:
+                result=float(int(va[0])+1)
+            else:
+                result=float(int(va[0]))
+        elif weishu==1:
+            if int(va[1][weishu])>=5:
+                result=float(va[0] +"."+str(int(va[1][weishu-1])+1))
+            else:
+                result=float(va[0] + "." + str(int(va[1][weishu - 1])))
+        else:
+            if int(va[1][weishu])>=5:
+                xiaoshuwei=str(int(va[1][:weishu])+1)
+                if xiaoshuwei[0]=="1":
+                    result=float(int(va[0]) +1)
+                else:
+                    result = float(va[0] + "." + str(int(va[1][:weishu]) + 1))
+            else:
+                result=float(va[0] + "." +str(int(va[1][:weishu - 1]))+ str(int(va[1][weishu - 1])))
+    if biaoshi==1:
+        result=-result
+    return result

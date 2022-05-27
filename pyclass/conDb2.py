@@ -7,7 +7,7 @@ import logging
 
 def conDb(host='',port='',user='',password='',database=''):
     # 连接数据库
-    conn = db.connect("PORT="+port+";PROTOCOL=TCPIP;",host=host,database=database,user=user,password=password)
+    conn = db.connect("PORT="+port+";PROTOCOL=TCPIP;AUTHENTICATION=SERVER;",host=host,database=database,user=user,password=password)
     return conn
 
 #查询多条数据返回所有数据值的List
