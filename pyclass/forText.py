@@ -9,7 +9,8 @@ def writeTxt(txt):
     if not os.path.exists(img_path):
         os.makedirs(img_path)
     excelpath = img_path + "\\result"+ time.strftime("%Y%m%d%H%M%S",time.localtime())+".txt"
-    with open(excelpath, "a+", encoding="utf-8") as f:
+    #encoding="utf-8-sig"写到txt时带BOM，encoding="utf-8"写到txt不带BOM
+    with open(excelpath, "a+", encoding="utf-8-sig") as f:
         f.writelines(txt)
 
 def readTxt(url):
