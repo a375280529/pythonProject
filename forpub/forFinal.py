@@ -197,7 +197,7 @@ def newround(value,weishu):
         else:
             if int(va[1][weishu])>=5:
                 xiaoshuwei=str(int(va[1][:weishu])+1)
-                if xiaoshuwei[0]=="1":
+                if xiaoshuwei[0]=="1" and va[1][0]!="1":
                     result=float(int(va[0]) +1)
                 else:
                     result = float(va[0] + "." + str(int(va[1][:weishu]) + 1))
