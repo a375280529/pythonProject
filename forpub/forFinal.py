@@ -6,12 +6,22 @@ import random
 import pandas as pd
 from xml.dom.minidom import parse
 import base64
+import logging
+import hashlib
+import json
+import xmltodict
+from bs4 import BeautifulSoup
+import paramiko
+import sys
 import time
 
 # 获取配置文件相对路径
 def getIniPath():
     path = os.path.dirname(os.path.abspath(__file__))
     path = path.split(path.split('\\')[-1])[0] + "iniFile" + "\\"
+    # exepath = os.path.realpath(sys.executable)
+    # endpath = exepath.split(exepath.split("\\")[-1])[0]
+    # path = os.path.join(os.path.abspath('.'), endpath + "iniFile\\")
     return path
 
 
@@ -216,3 +226,98 @@ def writeIni(ini,title,key,value):
     with open(path, "w+", encoding="utf-8-sig") as f:
         fixConfig.write(f)
         f.close()
+
+#stringvalue为str类型，把unicode转字符串（\\u64cd\\u4f5c\\u6210\\u529f）
+def unicodetostr(stringvalue):
+    re=stringvalue.encode("utf-8").decode("unicode_escape")
+    return re
+
+#md5加密
+def strformd5(text):
+    hl=hashlib.md5()
+    hl.update(text.encode(encoding="utf-8"))
+    md5value=hl.hexdigest()
+    return md5value
+
+#上传文件到sftp
+def uploadsftp(filename):
+    ini = getIni("loggerTable.ini")
+    ip = ini["callpro"]["callproConnect_sftp_ip"]
+    port = int(ini["callpro"]["callproConnect_sftp_port"])
+    username = ini["callpro"]["callproConnect_sftp_username"]
+    password = ini["callpro"]["callproConnect_sftp_password"]
+    path = ini["callpro"]["callproConnect_sftp__path"]
+    handle = paramiko.Transport((ip,port))
+    handle.connect(username=username, password=password)
+    sftp = paramiko.SFTPClient.from_transport(handle)
+    sftpfile=path_replace("sftpfile/"+filename)
+    sftp.put(sftpfile,path+"/"+filename)
+
+#xml转json
+def changexmltojson(xml):
+    soup = BeautifulSoup(xml, 'xml')
+    hh = xmltodict.parse(str(soup))
+    di = json.dumps(dict(hh))
+    js = json.loads(di)
+    return js
+
+#win和Linux路径的转换
+def path_replace(filename):
+    #（打包需要更换）
+    path = os.path.dirname(os.path.abspath(__file__))
+    BASE_DIR = path.split(path.split('\\')[-1])[0]
+    # exepath = os.path.realpath(sys.executable)
+    # endpath = exepath.split(exepath.split("\\")[-1])[0]
+    # BASE_DIR = os.path.join(os.path.abspath('.'), endpath)
+    if 'win' in sys.platform:
+        filename=filename.replace("/","\\")
+        r=BASE_DIR+filename
+    else:
+        r=BASE_DIR+filename
+    return r
+
+#读取json文件
+def build_data(filepath):
+    # 1. with open() 只读方式，打开文件，获取文件对象
+    with open(filepath, 'r', encoding='utf-8') as f:
+        # 2. 调用方法获取文件内容：读取的内容 = json.load(文件对象)
+        json_data = json.load(f)
+        # print(json_data)
+    return json_data
+
+#初始化日志
+def init_log_config(filename, when='midnight', interval=1, backup_count=7):
+
+    # 1. 创建日志器对象
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+
+    # 3. 创建处理器对象
+    # 输出到控制台
+    st = logging.StreamHandler()
+    # 输出到日志文件
+    # when 是一个字符串，定义了日志切分的间隔时间单位
+    # interval 是间隔时间单位的个数，指等待多少个 when 的时间后继续进行日志记录
+    # backupCount 是保留日志的文件个数
+    fh = logging.handlers.TimedRotatingFileHandler(filename,
+                                                   when=when,
+                                                   interval=interval,
+                                                   backupCount=backup_count,
+                                                   encoding='utf-8')
+
+    # 4. 创建格式化器
+    fmt = "%(asctime)s %(levelname)s [%(filename)s(%(funcName)s:%(lineno)d)] - %(message)s"
+    formatter = logging.Formatter(fmt)
+    # 5. 给处理器设置格式化器
+    st.setFormatter(formatter)
+    fh.setFormatter(formatter)
+    # 6. 给日志器添加处理器
+    logger.addHandler(st)
+    logger.addHandler(fh)
+
+if __name__ == '__main__':
+    # 1:获取当前时间并整理格式
+    lognow = time.strftime("%Y%m%d", time.localtime(time.time()))
+    # 初始化日志
+    log_path = path_replace('/log/' + lognow + '.log')
+    init_log_config(log_path)

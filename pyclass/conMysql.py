@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import time
 
 import pymysql as ms
 import logging
@@ -43,7 +44,7 @@ def queryMysqlReturnMap(host,port,user,password,database, sql):
         pass
     else:
         for i in range(len(fieldnames)):
-            mapresult[fieldnames[i]] = rows[i]
+            mapresult[str(fieldnames[i]).upper()] = rows[i]
     # 关闭游标
     cursor.close()
     # 关闭数据库连接
@@ -66,7 +67,7 @@ def queryMysqlAllReturnList(host,port,user,password,database, sql):
         for row in rows:
             mapresult = {}
             for i in range(len(fieldnames)):
-                mapresult[fieldnames[i]] = row[i]
+                mapresult[str(fieldnames[i]).upper()] = row[i]
             list.append(mapresult)
     # 关闭游标
     cursor.close()
@@ -121,12 +122,26 @@ def useMysqlPro(host,port,user,password,database,proname,inlist):
         conn.close()
 
 if __name__ == '__main__':
+    print(time.strftime("%Y%m%d%H%M%S",time.localtime()))
+    li=['868','120109066870104324','2020-01-08','ces','','']
+    resout=useMysqlPro('192.168.85.149',3306,'zl_longjiangbk','zl_longjiangbk','db_zl_longjiangbk','p_bzzb_jc',li)
+    print(resout)
+    time.sleep(2)
+    resout1 = useMysqlPro('192.168.85.149', 3306, 'zl_longjiangbk', 'zl_longjiangbk', 'db_zl_longjiangbk', 'p_bzzb_sb',li)
+    print(resout1)
+    time.sleep(2)
+    resout2 = useMysqlPro('192.168.85.149', 3306, 'zl_longjiangbk', 'zl_longjiangbk', 'db_zl_longjiangbk', 'p_bzzb_sbzs',li)
+    print(resout2)
+    time.sleep(2)
+    resout3 = useMysqlPro('192.168.85.149', 3306, 'zl_longjiangbk', 'zl_longjiangbk', 'db_zl_longjiangbk', 'p_bzzb_cwbb',li)
+    print(resout3)
+    print(time.strftime("%Y%m%d%H%M%S", time.localtime()))
     #pass
-    for i in range(10):
-        print(i+1)
-        sql="INSERT into djangochild_project (id,project_name,project_enname,project_desc,status) values ('%s','%s','%s','%s','%s')"%(str(i+100),"执行"+str(i+1),"晓得啥"+str(i+1),"信息的"+str(i+1),str(i+1))
-        print(sql)
-        updateMysql("localhost",3306,"zhangchuan","zhangchuan","dbtest",sql)
+    # for i in range(10):
+    #     print(i+1)
+    #     sql="INSERT into djangochild_project (id,project_name,project_enname,project_desc,status) values ('%s','%s','%s','%s','%s')"%(str(i+100),"执行"+str(i+1),"晓得啥"+str(i+1),"信息的"+str(i+1),str(i+1))
+    #     print(sql)
+    #     updateMysql("localhost",3306,"zhangchuan","zhangchuan","dbtest",sql)
     # print(result)
     # inlist = []
     # outmap = {}

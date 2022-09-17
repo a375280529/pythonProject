@@ -44,3 +44,19 @@ if __name__ == '__main__':
     result.report(filename=filename, description=description, log_path=log_path)
     print("执行完成。。。")
 
+
+# pattern = config["path"]["pattern"]
+#
+# patternlist=pattern.split(",")
+#
+# if __name__ == '__main__':
+#     suite = unittest.TestSuite()
+#     for pl in patternlist:
+#         suiteurl = unittest.defaultTestLoader.discover(test_case_path, pattern=pl)
+#         suite.addTests(suiteurl)
+#     result = BeautifulReport(suite)
+#     result.report(filename=filename, description=description, log_path=baogao_path)
+#     # 用于无网络测试报告无网络的css和js（打包需要放开）
+#     # if not os.path.exists(baogao_path + "/bueatifulcss"):
+#     #     shutil.copytree(bef, baogao_path + "/bueatifulcss")
+#     print("执行完成。。。")

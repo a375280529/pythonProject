@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import datetime
 
 import cx_Oracle as cx
 import logging
@@ -23,12 +24,19 @@ def queryOracle(url, sql):
     all_data = cursor.fetchall()
     # 获取部分数据，8条
     # many_data=cursor.fetchmany(8)
+    allret=[]
+    for i in range(len(all_data)):
+        ret=list(all_data[i])
+        for d in range(len(ret)):
+            if isinstance(ret[d],cx.LOB):
+                ret[d]=ret[d].read()
+        allret.append(ret)
     #print(result.description)
     # 关闭游标
     cursor.close()
     # 关闭数据库连接
     conn.close()
-    return all_data
+    return allret
 
 #查询出一条数据返回map
 def queryOracleReturnMap(url, sql):
@@ -44,7 +52,10 @@ def queryOracleReturnMap(url, sql):
         pass
     else:
         for i in range(len(fieldnames)):
-            mapresult[fieldnames[i]] = rows[i]
+            if isinstance(rows[i],datetime.datetime):
+                mapresult[fieldnames[i]] = rows[i]
+            else:
+                mapresult[fieldnames[i]] = str(rows[i])
     # 关闭游标
     cursor.close()
     # 关闭数据库连接
@@ -66,7 +77,10 @@ def queryOracleNone(url, sql):
             mapresult[fieldnames[i]] = "None"
     else:
         for i in range(len(fieldnames)):
-            mapresult[fieldnames[i]] = rows[i]
+            if isinstance(rows[i], datetime.datetime):
+                mapresult[fieldnames[i]] = rows[i]
+            else:
+                mapresult[fieldnames[i]] = str(rows[i])
     # 关闭游标
     cursor.close()
     # 关闭数据库连接
@@ -89,7 +103,10 @@ def queryOracleAllReturnList(url, sql):
         for row in rows:
             mapresult = {}
             for i in range(len(fieldnames)):
-                mapresult[fieldnames[i]] = row[i]
+                if isinstance(row[i], datetime.datetime):
+                    mapresult[fieldnames[i]] = row[i]
+                else:
+                    mapresult[fieldnames[i]] = str(row[i])
             list.append(mapresult)
     # 关闭游标
     cursor.close()
@@ -202,17 +219,8 @@ def usesql(url, sql):
     return biaoshi
 
 if __name__ == '__main__':
-    pass
-    # sql="select t.sw_bg_bsry_01m,t.* from T_JC_ZB t where t.nsrsbh='440100593700191'"
-    # result=queryOracleReturnMap("vz_bz4/vz_bz4@192.168.85.81:1521/emserver",sql)
-    # print(result)
-    # sql="select t.nsrsbh from (select * from pr_head_info order by update_time asc) t where rownum<=10"
-    # result = queryOracleAllReturnList("zxc/zxc@192.168.85.81:1521/emserver", sql)
-    # print(result)
-    # aa="nsrsbh in ("
-    # for idf in result:
-    #     print(idf["NSRSBH"])
-    #     aa+="'"+idf["NSRSBH"]+"',"
-    # aa=aa[:-1]+")"
-    # print(aa)
+    #pass
+    sql="select * from hsj_alter where ent_name ='部署测试企业用100750技有限公司'"
+    result=queryOracleAllReturnList("dev_vzbz/dev_vzbz@192.168.85.81:1521/emserver",sql)
+    print(result)
 

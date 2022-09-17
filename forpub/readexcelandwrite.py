@@ -35,7 +35,7 @@ def quzero(val):
         return val
 
 if __name__ == '__main__':
-    ff=forExcel.readExcelSheet("C:\\Users\\zhangc\\Desktop\\最新vzbz税务指标结果\\gssf_t_hsj-20220429.xlsx")
+    ff=forExcel.readExcelSheet("C:\\Users\\zhangc\\Desktop\\最新vzbz税务指标结果\\gssf_t_hsj-20220506.xlsx")
     map1={}
     list1=[]
     list2=[]
@@ -46,8 +46,8 @@ if __name__ == '__main__':
         i=0
         map2={}
         for b in a.keys():
-            if b!="NSRSBH" and b!="SPSJ" and b!='GS_TZBL_FR' and b!='GS_BGCS_FR_6M' and b!='GS_BGCS_FR_1Y' and b!='GS_BGCS_FR_2Y' and b!='GS_BGCS_FR_3Y' and b!='GS_BGCS_FR_5Y' and b!='GS_BGSC_FR' and b!='GS_YYZT' and b!='GS_BGSC_QYMC_2Y' and b!='GS_BGCS_ZCDZ_2Y' and b!='GS_BGSC_QYMC_1Y' and b!='GS_BGSC_QYMC_3Y' and b!='GS_BGSC_QYMC_5Y' and b!='GS_BGCS_ZCDZ_1Y' and b!='GS_BGCS_ZCDZ_3Y' and b!='GS_BGCS_ZCDZ_5Y' and b!='GS_BGCS_GD_1Y' and b!='GS_BGCS_GD_2Y' and b!='GS_BGCS_GD_3Y' and b!='GS_BGCS_GD_5Y' and b!='SF_HSJ_ZDFLSS_BG_1Y_QY' and b!='SF_HSJ_ZDFLSS_BG_2Y_QY' and b!='SF_HSJ_ZDFLSS_BG_3Y_QY' and b!='SF_HSJ_ZDFLSS_BG_5Y_QY' and b!='SF_HSJ_FLDJF_BG_1Y_QY' and b!='SF_HSJ_FLDJF_BG_2Y_QY' and b!='SF_HSJ_FLDJF_BG_3Y_QY' and b!='SF_HSJ_FLDJF_BG_5Y_QY' and b!='SF_HSJ_GDZMTZGS_QY' and b!='SF_HSJ_FRCGSC_QY':
-                continue
+            # if b!="NSRSBH" and b!="SPSJ" and b!='GS_TZBL_FR' and b!='GS_BGCS_FR_6M' and b!='GS_BGCS_FR_1Y' and b!='GS_BGCS_FR_2Y' and b!='GS_BGCS_FR_3Y' and b!='GS_BGCS_FR_5Y' and b!='GS_BGSC_FR' and b!='GS_YYZT' and b!='GS_BGSC_QYMC_2Y' and b!='GS_BGCS_ZCDZ_2Y' and b!='GS_BGSC_QYMC_1Y' and b!='GS_BGSC_QYMC_3Y' and b!='GS_BGSC_QYMC_5Y' and b!='GS_BGCS_ZCDZ_1Y' and b!='GS_BGCS_ZCDZ_3Y' and b!='GS_BGCS_ZCDZ_5Y' and b!='GS_BGCS_GD_1Y' and b!='GS_BGCS_GD_2Y' and b!='GS_BGCS_GD_3Y' and b!='GS_BGCS_GD_5Y' and b!='SF_HSJ_ZDFLSS_BG_1Y_QY' and b!='SF_HSJ_ZDFLSS_BG_2Y_QY' and b!='SF_HSJ_ZDFLSS_BG_3Y_QY' and b!='SF_HSJ_ZDFLSS_BG_5Y_QY' and b!='SF_HSJ_FLDJF_BG_1Y_QY' and b!='SF_HSJ_FLDJF_BG_2Y_QY' and b!='SF_HSJ_FLDJF_BG_3Y_QY' and b!='SF_HSJ_FLDJF_BG_5Y_QY' and b!='SF_HSJ_GDZMTZGS_QY' and b!='SF_HSJ_FRCGSC_QY':
+            #     continue
             ii = "a"
             i+=1
             ii+=str(i)
