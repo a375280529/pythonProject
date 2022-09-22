@@ -127,9 +127,12 @@ def updateOracle(url, sql):
         # 提交数据
         conn.commit()
         logging.info("插入或更新成功！")
-    except:
+    except Exception as e:
         conn.rollback()
         logging.error("异常sql！")
+        print(e)
+        print(f'error file:{e.__traceback__.tb_frame.f_globals["__file__"]}')
+        print(f"error line:{e.__traceback__.tb_lineno}")
     finally:
         # 关闭游标
         cursor.close()
@@ -220,7 +223,7 @@ def usesql(url, sql):
 
 if __name__ == '__main__':
     #pass
-    sql="select * from hsj_alter where ent_name ='部署测试企业用100750技有限公司'"
-    result=queryOracleAllReturnList("dev_vzbz/dev_vzbz@192.168.85.81:1521/emserver",sql)
-    print(result)
+    sql="update zx_nsrjcxx set nsrsbh='123456789012345678901234567890123456789012345678901234567890' where nsrsbh='91370124MA3C687108'"
+    result=updateOracle("collect/collect@192.168.85.61:1521/emserver",sql)
+
 
