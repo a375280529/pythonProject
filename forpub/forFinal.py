@@ -220,7 +220,9 @@ def newround(value,weishu):
 #更改ini中对应的key的值，ini为ini的文件名称，title为最外面名称,key为键，value为值
 def writeIni(ini,title,key,value):
     path = getIniPath() + ini
-    fixConfig = configparser.ConfigParser()
+    fixConfig = configparser.ConfigParser(comment_prefixes='/', allow_no_value=True)
+    #comment_prefixes='/', allow_no_value=True可以保留Ini的注释，异常字符时候用RawConfigParser
+    #fixConfig = configparser.RawConfigParser(comment_prefixes='/', allow_no_value=True)
     fixConfig.read(path, encoding="utf-8-sig")
     fixConfig.set(title, key, value)
     with open(path, "w+", encoding="utf-8-sig") as f:
