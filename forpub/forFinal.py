@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 import paramiko
 import sys
 import time
+from urllib.parse import urlencode, quote, unquote
 
 # 获取配置文件相对路径
 def getIniPath():
@@ -317,9 +318,15 @@ def init_log_config(filename, when='midnight', interval=1, backup_count=7):
     logger.addHandler(st)
     logger.addHandler(fh)
 
+#对url后面参数进行解码（如参数%E6%98%AF）
+def unquotetostr(str):
+    return unquote(str)
+
 if __name__ == '__main__':
-    # 1:获取当前时间并整理格式
-    lognow = time.strftime("%Y%m%d", time.localtime(time.time()))
-    # 初始化日志
-    log_path = path_replace('/log/' + lognow + '.log')
-    init_log_config(log_path)
+    # # 1:获取当前时间并整理格式
+    # lognow = time.strftime("%Y%m%d", time.localtime(time.time()))
+    # # 初始化日志
+    # log_path = path_replace('/log/' + lognow + '.log')
+    # init_log_config(log_path)
+    aa=unquotetostr("%E6%98%AF")
+    print(aa)

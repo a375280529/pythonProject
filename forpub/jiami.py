@@ -26,7 +26,9 @@ if __name__ == '__main__':
     # 获取jvm.dll的文件路径
     jvmPath = jpype.getDefaultJVMPath()
     # 开启jvm
-    jpype.startJVM(jvmPath, '-ea', '-Djava.class.path=%s' % (jarpath))
+    if not jpype.isJVMStarted():
+        #jpype.startJVM(jvmPath, '-ea', classpath=[jarpath1, jarpath2, jarpath3, jarpath4])
+        jpype.startJVM(jvmPath, '-ea', '-Djava.class.path=%s' % (jarpath))
     # 加载java类（参数名是java的长类名）
     javaClass = jpype.JClass('CryptionUtil')
 
