@@ -51,6 +51,28 @@ def queryMysqlReturnMap(host,port,user,password,database, sql):
     conn.close()
     return mapresult
 
+#查询出一条数据返回map（无数据时返回键和none）
+def queryMysqlNone(host,port,user,password,database, sql):
+    conn = conMysql(host=host,port=port,user=user,password=password,database=database)
+    # 使用cursor()方法获取操作游标
+    cursor = conn.cursor()
+    # 使用execute方法执行SQL语句
+    result = cursor.execute(sql)
+    rows = cursor.fetchone()
+    mapresult = {}
+    fieldnames = [key[0] for key in cursor.description]
+    if rows is None:
+        for i in range(len(fieldnames)):
+            mapresult[str(fieldnames[i]).upper()] = "None"
+    else:
+        for i in range(len(fieldnames)):
+            mapresult[str(fieldnames[i]).upper()] = rows[i]
+    # 关闭游标
+    cursor.close()
+    # 关闭数据库连接
+    conn.close()
+    return mapresult
+
 #查询出多条数据并返回list
 def queryMysqlAllReturnList(host,port,user,password,database, sql):
     conn = conMysql(host=host,port=port,user=user,password=password,database=database)
