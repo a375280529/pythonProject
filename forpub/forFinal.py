@@ -15,6 +15,7 @@ import paramiko
 import sys
 import time
 from urllib.parse import urlencode, quote, unquote
+import string
 
 # 获取配置文件相对路径
 def getIniPath():
@@ -321,6 +322,13 @@ def init_log_config(filename, when='midnight', interval=1, backup_count=7):
 #对url后面参数进行解码（如参数%E6%98%AF）
 def unquotetostr(str):
     return unquote(str)
+
+def create_string_number(n):
+    """生成一串指定位数的字符+数组混合的字符串"""
+    m = random.randint(1, n)
+    a = "".join([str(random.randint(0, 9)) for _ in range(m)])
+    b = "".join([random.choice(string.ascii_letters) for _ in range(n - m)])
+    return ''.join(random.sample(list(a + b), n))
 
 if __name__ == '__main__':
     # # 1:获取当前时间并整理格式

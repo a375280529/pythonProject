@@ -92,14 +92,14 @@ def upload():
         return 'failed'
 
 
-@app.route('/user/<username>')
+@app.route('/user1/<username>',methods=['POST', 'GET'])
 def user(username):
     print(username)
     print(type(username))
     return 'hello ' + username
 
 
-@app.route('/user/<username>/friends')
+@app.route('/user/<username>/friends',methods=['POST', 'GET'])
 def user_friends(username):
     print(username)
     print(type(username))
