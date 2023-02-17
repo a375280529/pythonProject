@@ -34,8 +34,8 @@ def conActiveMq(host='',port=0,username='',passcode=''):
     return conn
 
 if __name__ == '__main__':
-    queuename= "testmq"
-    con=conActiveMq(host='127.0.0.1',port=61613,username='admin',passcode='admin')
+    queuename= "vz.queue.service.collect.taxdata.xiamen"
+    con=conActiveMq(host='192.168.84.230',port=61613,username='admin',passcode='admin')
     result=receive_from_queue(con,queuename)
     print(result)
     con.disconnect()
