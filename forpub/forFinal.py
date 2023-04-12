@@ -16,6 +16,8 @@ import sys
 import time
 from urllib.parse import urlencode, quote, unquote
 import string
+import pika
+import redis
 
 # 获取配置文件相对路径
 def getIniPath():
@@ -198,21 +200,33 @@ def newround(value,weishu):
     if len(va) != 1:
         if weishu==0:
             if int(va[1][weishu])>=5:
-                result=float(int(va[0])+1)
+                result=int(va[0])+1
             else:
-                result=float(int(va[0]))
+                result=int(va[0])
         elif weishu==1:
             if int(va[1][weishu])>=5:
-                result=float(va[0] +"."+str(int(va[1][weishu-1])+1))
+                if va[1][0]=="9":
+                    result=float(str(int(va[0])+1)+".0")
+                else:
+                    result=float(va[0] +"."+str(int(va[1][weishu-1])+1))
             else:
                 result=float(va[0] + "." + str(int(va[1][weishu - 1])))
         else:
             if int(va[1][weishu])>=5:
-                xiaoshuwei=str(int(va[1][:weishu])+1)
+                if len(va[1])>len(str(int(va[1]))):
+                    ll=len(va[1])-len(str(int(va[1])))
+                    sr=""
+                    for i in range(ll):
+                        sr+="0"
+                    xiaoshuwei=sr+str(int(va[1][:weishu])+1)
+                else:
+                    xiaoshuwei=str(int(va[1][:weishu])+1)
                 if xiaoshuwei[0]=="1" and va[1][0]!="1":
                     result=float(int(va[0]) +1)
                 else:
-                    result = float(va[0] + "." + str(int(va[1][:weishu]) + 1))
+                    if len(xiaoshuwei)>weishu:
+                        xiaoshuwei=xiaoshuwei[len(xiaoshuwei)-weishu:]
+                    result = float(va[0] + "." + xiaoshuwei)
             else:
                 result=float(va[0] + "." +str(int(va[1][:weishu - 1]))+ str(int(va[1][weishu - 1])))
     if biaoshi==1:
@@ -330,11 +344,63 @@ def create_string_number(n):
     b = "".join([random.choice(string.ascii_letters) for _ in range(n - m)])
     return ''.join(random.sample(list(a + b), n))
 
+def readjsonvalue(param,wkey,replacevalue):
+    keys = wkey.split(".")
+    current_dict = param
+    for key in keys[:-1]:
+        current_dict = current_dict[key]
+    current_dict[keys[-1]] = replacevalue
+    return param
+
+#连接redis
+def conredis(host,port):
+    # 实现一个连接池
+    pool = redis.ConnectionPool(host=host,port=int(port))
+    r = redis.Redis(connection_pool=pool)
+    return r
+
+def sendmq(jiamibiaoshi,url,msg):
+    # 验证 用户名和密码
+    credentials = pika.PlainCredentials('zxc', 'zxc')
+    # 创建连接 virtual_host: rabbitMQ 使用的虚拟主机(一个broker可以有多个，对不同用户进行权限分离)
+    conn = pika.BlockingConnection(pika.ConnectionParameters(host='192.168.85.134', port=5672, virtual_host='/shaanxituishu', credentials=credentials))
+    # 建立一个channel
+    chan = conn.channel()
+    # 创建一个队列
+    chan.queue_declare(queue='rabbit')
+    ps = {}
+    ps["url"] = url
+    ps["msg"] = msg
+    ps["jiamibiaoshi"]=jiamibiaoshi
+    # 发送消息 exchange: 把消息发布到指定交换机, 通过这个交换机转发给消费者; 可以不指定
+    # exchange 可以在后台创建
+    chan.basic_publish(exchange='sxts', routing_key='rabbit', body=json.dumps(ps))
+    conn.close()
+
 if __name__ == '__main__':
     # # 1:获取当前时间并整理格式
     # lognow = time.strftime("%Y%m%d", time.localtime(time.time()))
     # # 初始化日志
     # log_path = path_replace('/log/' + lognow + '.log')
     # init_log_config(log_path)
-    aa=unquotetostr("%E6%98%AF")
-    print(aa)
+    # aa=unquotetostr("%E6%98%AF")
+    # bb=unicodetostr("\\u8bf7\\u6c42\\u53c2\\u6570\\u5f02\\u5e38")
+    # print(aa)
+    # print(bb)
+    my_dict={"a":{"b":"c","cd":"ff","x":{"a":"f"}}}
+    my_str = "a.x.a"
+    new_value = "new_value"
+
+    read=readjsonvalue(my_dict,my_str,new_value)
+    print(read)
+
+    keys = my_str.split(".")  # 将字符串分割成键的列表
+    current_dict = my_dict
+
+    # 从字典中找到最后一个键之前的所有子字典
+    for key in keys[:-1]:
+        current_dict = current_dict[key]
+
+    # 将最后一个键的值设置为新值
+    current_dict[keys[-1]] = new_value
+    print(my_dict)
