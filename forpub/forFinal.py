@@ -228,7 +228,7 @@ def newround(value,weishu):
                         xiaoshuwei=xiaoshuwei[len(xiaoshuwei)-weishu:]
                     result = float(va[0] + "." + xiaoshuwei)
             else:
-                result=float(va[0] + "." +str(int(va[1][:weishu - 1]))+ str(int(va[1][weishu - 1])))
+                result=float(va[0] + "." +str(va[1][:weishu - 1])+ str(int(va[1][weishu - 1])))
     if biaoshi==1:
         result=-result
     return result
