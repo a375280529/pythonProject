@@ -18,6 +18,7 @@ from urllib.parse import urlencode, quote, unquote
 import string
 import pika
 import redis
+from decimal import Decimal
 
 # 获取配置文件相对路径
 def getIniPath():
@@ -179,12 +180,13 @@ def quzero(val):
     except:
         return val
 
-#用于四舍五入 value:值(float类型) weishu(保留几位)
+#用于包括四位内小数的四舍五入 value:值(float类型) weishu(保留几位)
 def newround(value,weishu):
     biaoshi=0
     if str(value)[0]=="-":
         value=-value
         biaoshi=1
+    value = '{:.6f}'.format(value)
     strvalue = str(value)
     va=strvalue.split(".")
     if len(va)==1:
@@ -230,7 +232,8 @@ def newround(value,weishu):
             else:
                 result=float(va[0] + "." +str(va[1][:weishu - 1])+ str(int(va[1][weishu - 1])))
     if biaoshi==1:
-        result=-result
+        if result!=0.0:
+            result=-result
     return result
 
 #更改ini中对应的key的值，ini为ini的文件名称，title为最外面名称,key为键，value为值
@@ -404,3 +407,17 @@ if __name__ == '__main__':
     # 将最后一个键的值设置为新值
     current_dict[keys[-1]] = new_value
     print(my_dict)
+
+#四舍五入
+def forround(value,weishu):
+    res = Decimal(str(value))
+    if str(weishu)=="0":
+        ret = str(res.quantize(Decimal('0'), rounding='ROUND_HALF_UP'))
+    else:
+        w="0."
+        for i in range(int(weishu)):
+            w+="0"
+        ret = str(res.quantize(Decimal(w), rounding='ROUND_HALF_UP'))
+    if ret[0]=="-" and int(float(ret[1:]))==0:
+        ret=ret[1:]
+    return ret
